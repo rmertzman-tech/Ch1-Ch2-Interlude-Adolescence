@@ -1,295 +1,1558 @@
-<!DOCTYPE html><html lang="en" class="no-js">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-<script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-domain-script="6e91be4c-3145-4ea2-aa64-89d716064836"></script><script type="text/javascript">
-					function OptanonWrapper() { }
-				</script><script>var offline=(location.href.indexOf('docs.unity3d.com')==-1)?true:false;if(!offline){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');}</script><link href="https://fonts.googleapis.com/css?family=Roboto&amp;display=swap" rel="stylesheet">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unity - Manual:  Unity User Manual 2022.1</title>
-<meta property="og:image" content="https://unity3d.com/files/images/ogimg.jpg">
-<meta name="author" content="Unity Technologies">
-<link rel="shortcut icon" href="https://unity.com/themes/contrib/unity_base/images/favicons/favicon.ico">
-<link rel="icon" type="image/png" href="../StaticFilesManual/images/favicons/favicon.png">
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="../StaticFilesManual/images/favicons/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../StaticFilesManual/images/favicons/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="../StaticFilesManual/images/favicons/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../StaticFilesManual/images/favicons/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../StaticFilesManual/images/favicons/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon-precomposed" href="../StaticFilesManual/images/favicons/apple-touch-icon.png">
-<meta name="msapplication-TileColor" content="#222c37">
-<meta name="msapplication-TileImage" content="../StaticFilesManual/images/favicons/tileicon-144x144.png">
-<script type="text/javascript" src="https://docs.unity3d.com/StaticFilesConfig/UnityVersionsInfo.js"></script><script type="text/javascript" src="../StaticFilesManual/js/jquery.js?ts=20220722"></script><script type="text/javascript" src="../StaticFilesManual/js/core.js?ts=20220722"></script><script type="text/javascript" src="docdata/toc.js?ts=20220722"></script><script type="text/javascript" src="docdata/global_toc.js?ts=20220722"></script><link rel="stylesheet" type="text/css" href="../StaticFilesManual/css/core.css?ts=20220722">
-<link rel="stylesheet" href="../StaticFilesManual/css/prism.css">
-<script src="../StaticFilesManual/js/prism.js"></script><script src="/StaticFilesConfig/feedback/feedback.js"></script><script src="../StaticFilesManual/js/jquery.sidebar.min.js"></script><link rel="stylesheet" href="../StaticFilesManual/css/mobileoptimisation.css">
-<script src="../StaticFilesManual/js/mobileoptimisation.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Refactoring Diagnostic - Understanding Your Construction Process</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #7c3aed;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --focus: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Skip to main content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            padding: 20px;
+        }
+
+        /* Focus indicators - critical for accessibility */
+        *:focus {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus,
+        input:focus,
+        [tabindex]:focus {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 30px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Accessible headings */
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        /* Form accessibility */
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+        }
+
+        legend {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .question-group {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .question-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        /* Accessible slider */
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-wrapper {
+            position: relative;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]:focus::-webkit-slider-thumb {
+            box-shadow: 0 0 0 3px var(--focus);
+        }
+
+        input[type="range"]:focus::-moz-range-thumb {
+            box-shadow: 0 0 0 3px var(--focus);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        /* Accessible radio buttons */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .radio-option:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .radio-option:has(input:checked) {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .radio-option:has(input:focus) {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .radio-option label {
+            cursor: pointer;
+            margin: 0;
+            flex: 1;
+        }
+
+        /* Visual feedback with accessible alternatives */
+        .visual-feedback {
+            margin: 30px 0;
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+        }
+
+        .meter {
+            margin: 20px 0;
+        }
+
+        .meter-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meter-bar {
+            height: 30px;
+            background: var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Accessible status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 10px 0;
+            border: 2px solid currentColor;
+        }
+
+        .status-badge.full { 
+            background: #d1fae5; 
+            color: #065f46;
+            border-color: #065f46;
+        }
+        .status-badge.moderate { 
+            background: #fef3c7; 
+            color: #92400e;
+            border-color: #92400e;
+        }
+        .status-badge.low { 
+            background: #fee2e2; 
+            color: #991b1b;
+            border-color: #991b1b;
+        }
+        .status-badge.critical { 
+            background: #fecaca; 
+            color: #7f1d1d;
+            border-color: #7f1d1d;
+        }
+
+        /* Accessible buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:focus {
+            outline: 3px solid var(--focus);
+            outline-offset: 3px;
+        }
+
+        .btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--text-light);
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--text);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Accessible progress bar */
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Accessible alerts */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-color: var(--primary);
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+            color: #92400e;
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            border-color: var(--danger);
+            color: #991b1b;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: var(--success);
+            color: #065f46;
+        }
+
+        .report-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .priority-list {
+            list-style: none;
+            counter-reset: priority;
+            padding-left: 0;
+        }
+
+        .priority-list li {
+            counter-increment: priority;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .priority-list li::before {
+            content: counter(priority);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 10px 10px 10px 35px;
+            position: relative;
+            margin: 8px 0;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 10px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .checklist li.warning::before {
+            content: "⚠";
+            color: var(--warning);
+        }
+
+        /* Accessible concept cards */
+        .concept-card {
+            margin: 15px 0;
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .concept-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .concept-card:focus {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .concept-card h3 {
+            margin-top: 0;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --border: #000000;
+                --text-light: #000000;
+            }
+            
+            .btn {
+                border: 2px solid currentColor;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+            .btn { display: none; }
+            .skip-link { display: none; }
+            .section { display: block !important; }
+            .section:not(#report) { display: none !important; }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            main { padding: 20px; }
+            header { padding: 30px 20px; }
+            header h1 { font-size: 1.5em; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; margin: 5px 0 !important; }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<div id="DocsAnalyticsData" data-area="none" data-pagetype="manual"></div>
-<div class="header-wrapper">
-<div id="header" class="header"><div class="content">
-<div class="spacer"><div class="menu">
-<div id="nav-open" for="nav-input"><span></span></div>
-<div class="logo"><a href="https://docs.unity3d.com"></a></div>
-<div class="search-form"><form action="30_search.html" method="get" class="apisearch">
-<input type="text" name="q" placeholder="Search manual..." autosave="Unity Reference" results="5" class="sbox field" id="q"><input type="submit" class="submit">
-</form></div>
-<ul>
-<li><a href="../Manual/index.html" class="selected">Manual</a></li>
-<li><a href="../ScriptReference/index.html">Scripting API</a></li>
-</ul>
-</div></div>
-<div class="more">
-<div class="filler"></div>
-<ul><li><a href="https://unity.com/">unity3d.com</a></li></ul>
-</div>
-</div></div>
-<div class="toolbar"><div class="content">
-<div class="toggle version-number" id="VersionNumber" data-target=".otherversionscontent">
-                                Version: <b>2022.1</b><div class="otherversionscontent" id="OtherVersionsContent" style="display: none;">
-<ul id="OtherVersionsContentUl"></ul>
-<div id="otherVersionsLegend"><ul>
-<li>
-<div id="supportedColour" class="legendBox"></div>Supported</li>
-<li>
-<div id="notFoundColour" class="legendBox"></div>Legacy</li>
-</ul></div>
-</div>
-<div id="VersionSwitcherArrow" class="arrow versionSwitcherArrow"></div>
-</div>
-<div class="lang-switcher"><div class="current toggle" data-target=".lang-list">
-<div class="lbl">Language
-:                <span class="b">English</span>
-</div>
-<div class="arrow"></div>
-<div class="lang-list" style="display:none;"><ul>
-<li><a href="/Manual/UnityManual.html">English</a></li>
-<li><a href="/cn/current/Manual/UnityManual.html">中文</a></li>
-<li><a href="/ja/current/Manual/UnityManual.html">日本語</a></li>
-<li><a href="/es/current/Manual/UnityManual.html">Español</a></li>
-<li><a href="/kr/current/Manual/UnityManual.html">한국어</a></li>
-<li><a href="/ru/current/Manual/UnityManual.html">Русский</a></li>
-</ul></div>
-</div></div>
-</div></div>
-<div class="mobileLogo"><a href="https://docs.unity3d.com"></a></div>
-</div>
-<div id="master-wrapper" class="master-wrapper clear">
-<div id="sidebar" class="sidebar"><div class="sidebar-wrap"><div class="content"><div class="sidebar-menu"><div class="toc" id="customScrollbar">
-<h2>Unity Manual</h2>
-<div class="search-form sidebar-search-form"><form action="30_search.html" method="get" class="apisearch">
-<input type="text" name="q" placeholder="Search manual..." autosave="Unity Reference" results="5" class="sbox field" id="q"><input type="submit" id="mobileSearchBtn" class="submit" value="Search">
-</form></div>
-<div class="toggle version-number sidebar-version-switcher" id="VersionNumber" data-target=".otherversionscontent"><form id="otherVersionsContentMobileForm"><div class="ui-field-contain">
-<label for="select-native-4">Version: 2022.1</label><select name="select-native-4" id="versionsSelectMobile"><option>Select a different version</option>
-<optgroup id="versionsWithThisPageMobile" label="Versions with this page"></optgroup>
-<optgroup id="versionsWithoutThisPageMobile" label="Versions without this page"></optgroup></select>
-</div></form></div>
-<div class="lang-switcher"><div class="current toggle" data-target=".lang-list">
-<div class="lbl">Language
-:                <span class="b">English</span>
-</div>
-<div class="arrow"></div>
-<div class="lang-list" style="display:none;"><ul>
-<li><a href="/Manual/UnityManual.html">English</a></li>
-<li><a href="/cn/current/Manual/UnityManual.html">中文</a></li>
-<li><a href="/ja/current/Manual/UnityManual.html">日本語</a></li>
-<li><a href="/es/current/Manual/UnityManual.html">Español</a></li>
-<li><a href="/kr/current/Manual/UnityManual.html">한국어</a></li>
-<li><a href="/ru/current/Manual/UnityManual.html">Русский</a></li>
-</ul></div>
-</div></div>
-</div></div></div></div></div>
-<div id="content-wrap" class="content-wrap"><div class="content-block"><div class="content">
-<div class="section">
-<div class="breadcrumbs clear"><ul><li> Unity User Manual 2022.1</li></ul></div>
-<div class="mb20"><div class="nextprev clear">
-<div class="icon tt left mr1" data-distance="-40|-30|top">
-<span class="prev"><a href="UnityManual.html"></a></span><div class="tip"> Unity User Manual 2022.1</div>
-</div>
-<div class="icon tt right" data-distance="-40|-30|top">
-<span class="next"><a href="UnityManual.html"></a></span><div class="tip"> Unity User Manual 2022.1</div>
-</div>
-</div></div>
-<div id="_leavefeedback"></div>
-<h1>Unity User Manual 2022.1</h1>
-<!--BeginSwitchLink--><!--EndSwitchLink-->
-<div class="clear"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<p>Use the Unity Editor to create 2D and 3D games, apps and experiences. Download the Editor at <a href="https://unity3d.com/unity">unity3d.com</a>.</p>
+    <div class="container">
+        <header role="banner">
+            <h1>The Refactoring Diagnostic</h1>
+            <p>Understanding Your Construction Process</p>
+        </header>
 
-<p>The Unity User Manual helps you learn how to use the Unity Editor and its associated services. You can read it from start to finish, or use it as a reference.</p>
+        <main id="main-content" role="main">
+            <!-- Announcement region for screen readers -->
+            <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
 
-<p>If it’s your first time using Unity, take a look at the introductory documentation on <a href="UnityOverview.html">Working with Unity</a>, and see the <a href="https://unity3d.com/learn/tutorials">Unity Tutorials</a>.</p>
-<div class="frontpage-topsection">
+            <!-- SECTION 1: Welcome -->
+            <section class="section active" id="welcome" aria-labelledby="welcome-heading">
+                <h2 id="welcome-heading">Welcome to the Refactoring Diagnostic</h2>
+                
+                <p>If you've been feeling exhausted, confused, hollow, or like you're "faking" your way through life—<strong>you're not broken</strong>. You're in the middle of one of the most energy-expensive processes in human development.</p>
 
-<p><strong>New</strong></p>
+                <p>You're <strong>refactoring</strong>—rewriting your identity's source code while the program is still running.</p>
 
-<ul>
-<li>Features introduced in 2022.1: <a href="WhatsNew20221.html">What’s New</a>
-</li>
-<li>Upgrading Unity projects from older versions of Unity: <a href="UpgradeGuide20221.html">Upgrade Guide</a>
-</li>
-</ul>
-</div>
-<div class="frontpage-topsection">
+                <div class="alert alert-info" role="region" aria-labelledby="what-this-does">
+                    <h3 id="what-this-does">What this tool does:</h3>
+                    <ul>
+                        <li>Helps you understand where you are in the refactoring process</li>
+                        <li>Shows you WHY you're exhausted (mechanisms, not just descriptions)</li>
+                        <li>Gives you personalized guidance on what you need right now</li>
+                        <li>Visualizes abstract concepts so they feel real and recognizable</li>
+                    </ul>
+                </div>
 
-<p><strong>Packages</strong></p>
+                <h3>How it works:</h3>
+                <ol>
+                    <li>Complete a brief self-assessment (15-20 questions, approximately 10 minutes)</li>
+                    <li>See real-time visual feedback showing your energy state</li>
+                    <li>Explore interactive concept explanations</li>
+                    <li>Get a personalized diagnostic report</li>
+                </ol>
 
-<ul>
-<li>Learn about packages: <a href="Packages.html">Working with the Package Manager</a>
-</li>
-<li>Find documentation for a specific package: <span class="tooltip"><a href="pack-safe.html">Verified packages</a><span class="tooltiptext">When a package passes release cycle testing for a specific version of Unity, it receives the <em>Verified For</em> designation. This means that these packages are guaranteed to work with the designated version of Unity.<br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#Verifiedpackage">Glossary</a></span></span></span> and <span class="tooltip"><a href="pack-preview.html">Preview packages</a><span class="tooltiptext">A <em>preview</em> package is in development and not yet ready for production. A package in preview might be at any stage of development, from the initial stages to near completion.<br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#Previewpackage">Glossary</a></span></span></span></li>
-<li>Learn how to build a custom package: <a href="CustomPackages.html">Creating custom packages</a>
-</li>
-</ul>
-</div>
-<div class="clear"></div>
-<div class="frontpage-divider"></div>
+                <div class="alert alert-success" role="region" aria-labelledby="privacy-heading">
+                    <h3 id="privacy-heading">Your Privacy</h3>
+                    <p>All data stays on your device. Nothing is sent to any server. You can optionally save your results locally or share anonymously with your teacher.</p>
+                </div>
 
-<h3>Unity User Manual sections</h3>
-<div class="frontpage-section">
-<a href="UnityOverview.html"><img src="../uploads/Main/StructEditor.jpg" alt="Main.UnityOverview"></a>
+                <nav aria-label="Main navigation">
+                    <div class="btn-group">
+                        <button type="button" class="btn" onclick="startAssessment()">
+                            Start Assessment
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="showSection('concepts')">
+                            Explore Concepts First
+                        </button>
+                    </div>
+                </nav>
+            </section>
 
-<h3><a href="UnityOverview.html">Working in Unity</a></h3>
+            <!-- SECTION 2: Assessment -->
+            <section class="section" id="assessment" aria-labelledby="assessment-heading">
+                <h2 id="assessment-heading">Self-Assessment: Where Are You Right Now?</h2>
+                
+                <div role="progressbar" 
+                     aria-valuenow="0" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100"
+                     aria-label="Assessment progress"
+                     class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+                <p style="text-align: center; color: var(--text-light);">
+                    Question <span id="questionNum">1</span> of <span id="totalQuestions">15</span>
+                </p>
 
-<p>A complete introduction to the Unity Editor.</p>
-</div>
-<div class="frontpage-section">
-<a href="Unity2D.html"><img src="../uploads/Main/struct2d.jpg" alt="Main.Unity2D"></a>
+                <form id="assessmentForm" onsubmit="return false;">
+                    <div id="questions">
+                        <!-- Questions will be dynamically inserted here -->
+                    </div>
+                </form>
 
-<h3><a href="Unity2D.html">Unity 2D</a></h3>
+                <div class="visual-feedback" id="liveFeedback" style="display: none;" role="region" aria-labelledby="live-feedback-heading">
+                    <h3 id="live-feedback-heading">Your Current State (Live Update)</h3>
+                    
+                    <div class="meter">
+                        <div class="meter-label">
+                            <span id="energy-label">Available Energy</span>
+                            <span id="energyPercent" aria-live="polite">--</span>
+                        </div>
+                        <div role="meter" 
+                             aria-labelledby="energy-label"
+                             aria-valuenow="0" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100"
+                             class="meter-bar">
+                            <div class="meter-fill" id="energyMeter" style="width: 0%">
+                                <span class="sr-only" id="energy-sr">Energy level: 0%</span>
+                            </div>
+                        </div>
+                    </div>
 
-<p>All of the Unity Editor’s 2D-specific features including gameplay, <span class="tooltip"><strong>sprites</strong><span class="tooltiptext">A 2D graphic objects. If you are used to working in 3D, Sprites are essentially just standard textures but there are special techniques for combining and managing sprite textures for efficiency and convenience during development. <a class="tooltipMoreInfoLink" href="Sprites.html">More info</a><br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#Sprite">Glossary</a></span></span></span> and physics.</p>
-</div>
-<div class="frontpage-section">
-<a href="Graphics.html"><img src="../uploads/Main/StructGraphics.jpg" alt="Main.Graphics"></a>
+                    <div class="meter">
+                        <div class="meter-label">
+                            <span id="construction-label">Construction Cost</span>
+                            <span id="constructionPercent" aria-live="polite">--</span>
+                        </div>
+                        <div role="meter" 
+                             aria-labelledby="construction-label"
+                             aria-valuenow="0" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100"
+                             class="meter-bar">
+                            <div class="meter-fill" id="constructionMeter" style="width: 0%; background: linear-gradient(90deg, #fbbf24, #f59e0b);">
+                                <span class="sr-only" id="construction-sr">Construction cost: 0%</span>
+                            </div>
+                        </div>
+                    </div>
 
-<h3><a href="Graphics.html">Graphics</a></h3>
+                    <div class="meter">
+                        <div class="meter-label">
+                            <span id="heat-label">System Heat (Stress)</span>
+                            <span id="heatPercent" aria-live="polite">--</span>
+                        </div>
+                        <div role="meter" 
+                             aria-labelledby="heat-label"
+                             aria-valuenow="0" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100"
+                             class="meter-bar">
+                            <div class="meter-fill" id="heatMeter" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #ef4444);">
+                                <span class="sr-only" id="heat-sr">System heat: 0%</span>
+                            </div>
+                        </div>
+                    </div>
 
-<p>The visual aspects of the Unity Editor including <span class="tooltip"><strong>cameras</strong><span class="tooltiptext">A component which creates an image of a particular viewpoint in your scene. The output is either drawn to the screen or captured as a texture. <a class="tooltipMoreInfoLink" href="CamerasOverview.html">More info</a><br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#Camera">Glossary</a></span></span></span> and lighting.</p>
-</div>
-<div class="frontpage-section">
-<a href="PhysicsSection.html"><img src="../uploads/Main/StructPhysics.jpg" alt="Main.PhysicsSection"></a>
+                    <div class="alert alert-warning" id="statusWarning" role="alert" aria-live="assertive" style="display: none;">
+                        <strong>System Alert:</strong> <span id="statusMessage"></span>
+                    </div>
+                </div>
 
-<h3><a href="PhysicsSection.html">Physics</a></h3>
+                <nav aria-label="Assessment navigation">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn" disabled>
+                            <span aria-hidden="true">←</span> Previous
+                        </button>
+                        <button type="button" class="btn" onclick="nextQuestion()" id="nextBtn">
+                            Next <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </nav>
+            </section>
 
-<p>Simulation of 3D motion, mass, gravity and <span class="tooltip"><strong>collisions</strong><span class="tooltiptext">A collision occurs when the physics engine detects that the colliders of two GameObjects make contact or overlap, when at least one has a Rigidbody component and is in motion. <a class="tooltipMoreInfoLink" href="CollidersOverview.html">More info</a><br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#Collision">Glossary</a></span></span></span>.</p>
-</div>
-<div class="frontpage-section">
-<a href="UNet.html"><img src="../uploads/Main/StructUNet.png" alt="Main.UNet"></a>
+            <!-- SECTION 3: Concepts -->
+            <section class="section" id="concepts" aria-labelledby="concepts-heading">
+                <h2 id="concepts-heading">Interactive Concept Explorer</h2>
+                
+                <p>Select any concept below to understand it through interactive explanation:</p>
 
-<h3><a href="UNet.html">Networking</a></h3>
+                <button type="button" class="concept-card" onclick="showConcept('energy')" aria-describedby="energy-desc">
+                    <h3>
+                        <span aria-hidden="true">⚡</span>
+                        The Energy Paradox
+                    </h3>
+                    <p id="energy-desc">Why you need massive energy to build identity, but building generates heat that drains your energy.</p>
+                </button>
 
-<p>How to implement Multiplayer and networking.</p>
-</div>
-<div class="frontpage-section">
-<a href="ScriptingSection.html"><img src="../uploads/Main/StructScripting.jpg" alt="Main.ScriptingSection"></a>
+                <button type="button" class="concept-card" onclick="showConcept('depth')" aria-describedby="depth-desc">
+                    <h3>
+                        <span aria-hidden="true">🌳</span>
+                        Identity Depth Structure
+                    </h3>
+                    <p id="depth-desc">Your identity has layers: roots, trunk, branches, and leading edge. Each changes at different rates.</p>
+                </button>
 
-<h3><a href="ScriptingSection.html">Scripting</a></h3>
+                <button type="button" class="concept-card" onclick="showConcept('trough')" aria-describedby="trough-desc">
+                    <h3>
+                        <span aria-hidden="true">🌊</span>
+                        The Entropic Trough
+                    </h3>
+                    <p id="trough-desc">Why you feel hollow: the gap between demolishing old identity and building new one.</p>
+                </button>
 
-<p>Programming your games by using scripting in the Unity Editor.</p>
-</div>
-<div class="frontpage-section">
-<a href="Audio.html"><img src="../uploads/Main/StructAudio.jpg" alt="Main.Audio"></a>
+                <button type="button" class="concept-card" onclick="showConcept('masking')" aria-describedby="masking-desc">
+                    <h3>
+                        <span aria-hidden="true">🎭</span>
+                        The Cost of Masking
+                    </h3>
+                    <p id="masking-desc">Running two operating systems at once: how pretending exhausts you.</p>
+                </button>
 
-<h3><a href="Audio.html">Audio</a></h3>
+                <nav aria-label="Concept navigation">
+                    <div class="btn-group">
+                        <button type="button" class="btn" onclick="showSection('assessment')">
+                            Take Assessment
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="showSection('welcome')">
+                            <span aria-hidden="true">←</span> Back to Welcome
+                        </button>
+                    </div>
+                </nav>
+            </section>
 
-<p>Audio in the Unity Editor, including clips, sources, listeners, importing and sound settings.</p>
-</div>
-<div class="frontpage-section">
-<a href="AnimationSection.html"><img src="../uploads/Main/StructAnimation.jpg" alt="Main.AnimationSection"></a>
+            <!-- SECTION 4: Detailed Concept Views -->
+            <section class="section" id="concept-detail" aria-labelledby="concept-detail-heading">
+                <h2 id="concept-detail-heading">Concept Explanation</h2>
+                <div id="conceptContent">
+                    <!-- Dynamic content inserted here -->
+                </div>
+                <nav aria-label="Concept navigation">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onclick="showSection('concepts')">
+                            <span aria-hidden="true">←</span> Back to Concepts
+                        </button>
+                    </div>
+                </nav>
+            </section>
 
-<h3><a href="AnimationSection.html">Animation</a></h3>
+            <!-- SECTION 5: Report -->
+            <section class="section" id="report" aria-labelledby="report-heading">
+                <h2 id="report-heading">Your Personalized Diagnostic Report</h2>
+                
+                <div class="report-section" id="reportSummary">
+                    <!-- Will be populated with results -->
+                </div>
 
-<p>Animation in the Unity Editor.</p>
-</div>
-<div class="frontpage-section">
-<a href="UIToolkits.html"><img src="../uploads/Main/StructUI.jpg" alt="Main.UISystem"></a>
+                <nav aria-label="Report actions">
+                    <div class="btn-group">
+                        <button type="button" class="btn" onclick="window.print()">
+                            <span aria-hidden="true">🖨️</span> Print Report
+                        </button>
+                        <button type="button" class="btn" onclick="saveResults()">
+                            <span aria-hidden="true">💾</span> Save Results
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="startOver()">
+                            <span aria-hidden="true">🔄</span> Start Over
+                        </button>
+                    </div>
+                </nav>
+            </section>
+        </main>
+    </div>
 
-<h3><a href="UIToolkits.html">UI</a></h3>
+    <script>
+        // Assessment Questions
+        const questions = [
+            {
+                id: 'sleep',
+                category: 'energy',
+                text: 'How many hours of sleep did you get last night?',
+                type: 'slider',
+                min: 0,
+                max: 12,
+                default: 7,
+                unit: 'hours',
+                labels: ['0 hours', '12 hours'],
+                score: (val) => {
+                    if (val >= 7 && val <= 9) return 100;
+                    if (val >= 6 && val < 7) return 70;
+                    if (val >= 5 && val < 6) return 40;
+                    return 20;
+                }
+            },
+            {
+                id: 'meals',
+                category: 'energy',
+                text: 'When did you last eat a real meal (not just snacks)?',
+                type: 'radio',
+                options: [
+                    { text: 'Within the last 3-4 hours', value: 100 },
+                    { text: '5-6 hours ago', value: 70 },
+                    { text: 'Haven\'t eaten yet today', value: 40 },
+                    { text: 'I regularly skip meals', value: 20 }
+                ]
+            },
+            {
+                id: 'exhaustion',
+                category: 'energy',
+                text: 'How exhausted do you feel right now?',
+                type: 'slider',
+                min: 0,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Not at all exhausted', 'Completely exhausted'],
+                score: (val) => 100 - (val * 10)
+            },
+            {
+                id: 'identity_clarity',
+                category: 'construction',
+                text: 'I feel like I know who I am',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Strongly disagree', 'Strongly agree'],
+                score: (val) => val * 10
+            },
+            {
+                id: 'feeling_fake',
+                category: 'construction',
+                text: 'I feel fake or hollow when playing my usual roles',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Never feel fake', 'Always feel fake'],
+                score: (val) => 100 - (val * 10)
+            },
+            {
+                id: 'values_alignment',
+                category: 'construction',
+                text: 'My values match my family\'s values',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Not at all', 'Completely match'],
+                score: (val) => val * 10
+            },
+            {
+                id: 'future_vision',
+                category: 'construction',
+                text: 'I can imagine my future self clearly',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Not at all clear', 'Very clearly'],
+                score: (val) => val * 10
+            },
+            {
+                id: 'questioning',
+                category: 'construction',
+                text: 'I\'m questioning things I used to accept without thinking',
+                type: 'radio',
+                options: [
+                    { text: 'Yes, constantly questioning', value: 100 },
+                    { text: 'Sometimes questioning', value: 70 },
+                    { text: 'Rarely questioning', value: 40 },
+                    { text: 'No, not really questioning', value: 20 }
+                ]
+            },
+            {
+                id: 'irritability',
+                category: 'heat',
+                text: 'I snap at people over small things',
+                type: 'radio',
+                options: [
+                    { text: 'Multiple times per day', value: 20 },
+                    { text: 'Once a day or every few days', value: 40 },
+                    { text: 'Occasionally', value: 70 },
+                    { text: 'Rarely or never', value: 100 }
+                ]
+            },
+            {
+                id: 'disconnection',
+                category: 'heat',
+                text: 'I feel hollow or disconnected from myself',
+                type: 'radio',
+                options: [
+                    { text: 'Most of the time', value: 20 },
+                    { text: 'Often', value: 40 },
+                    { text: 'Sometimes', value: 70 },
+                    { text: 'Rarely', value: 100 }
+                ]
+            },
+            {
+                id: 'impulsivity',
+                category: 'heat',
+                text: 'I act impulsively then regret it',
+                type: 'radio',
+                options: [
+                    { text: 'Very frequently', value: 20 },
+                    { text: 'Often', value: 40 },
+                    { text: 'Sometimes', value: 70 },
+                    { text: 'Rarely', value: 100 }
+                ]
+            },
+            {
+                id: 'social_pain',
+                category: 'heat',
+                text: 'Social rejection feels physically painful',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Not really painful', 'Extremely painful'],
+                score: (val) => 100 - ((val - 1) * 11)
+            },
+            {
+                id: 'authenticity',
+                category: 'support',
+                text: 'I have people I can be completely authentic with',
+                type: 'radio',
+                options: [
+                    { text: 'Yes, multiple people', value: 100 },
+                    { text: 'One or two people', value: 70 },
+                    { text: 'Maybe one person', value: 40 },
+                    { text: 'No one', value: 20 }
+                ]
+            },
+            {
+                id: 'stability',
+                category: 'support',
+                text: 'I have stable housing and food security',
+                type: 'radio',
+                options: [
+                    { text: 'Yes, very stable', value: 100 },
+                    { text: 'Mostly stable', value: 70 },
+                    { text: 'Somewhat unstable', value: 40 },
+                    { text: 'Very unstable', value: 20 }
+                ]
+            },
+            {
+                id: 'acceptance',
+                category: 'support',
+                text: 'My environment accepts who I\'m becoming',
+                type: 'slider',
+                min: 1,
+                max: 10,
+                default: 5,
+                unit: '',
+                labels: ['Not at all accepting', 'Completely accepting'],
+                score: (val) => val * 10
+            }
+        ];
 
-<p>User interface toolkits available in the Unity Editor.</p>
-</div>
-<div class="frontpage-section">
-<a href="Navigation.html"><img src="../uploads/Main/StructNavigation.jpg" alt="Main.Navigation"></a>
+        // State management
+        let currentQuestionIndex = 0;
+        let responses = {};
 
-<h3><a href="Navigation.html">Navigation</a></h3>
+        // Announce to screen readers
+        function announce(message) {
+            const announcer = document.getElementById('announcements');
+            announcer.textContent = message;
+        }
 
-<p>Navigation in the Unity Editor, including AI and pathfinding.</p>
-</div>
-<div class="frontpage-section">
-<a href="UnityServices.html"><img src="../uploads/Main/ServicesSection.png" alt="Main.Services"></a>
+        function startAssessment() {
+            showSection('assessment');
+            announce('Starting assessment. Question 1 of ' + questions.length);
+            renderQuestion(0);
+        }
 
-<h3><a href="UnityServices.html">Unity services</a></h3>
-</div>
-<div class="frontpage-section">
-<a href="VROverview.html"><img src="../uploads/Main/StructVR.jpg" alt="Main.VROverview"></a>
+        function renderQuestion(index) {
+            const question = questions[index];
+            let questionHTML = '';
+            
+            if (question.type === 'slider') {
+                questionHTML = `
+                    <fieldset class="question-group">
+                        <legend id="question-${question.id}-label">${question.text}</legend>
+                        ${renderSlider(question)}
+                    </fieldset>
+                `;
+            } else {
+                questionHTML = `
+                    <fieldset class="question-group">
+                        <legend id="question-${question.id}-label">${question.text}</legend>
+                        ${renderRadio(question)}
+                    </fieldset>
+                `;
+            }
+            
+            document.getElementById('questions').innerHTML = questionHTML;
+            document.getElementById('questionNum').textContent = index + 1;
+            document.getElementById('totalQuestions').textContent = questions.length;
+            
+            const progress = ((index + 1) / questions.length * 100);
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.querySelector('.progress-bar').setAttribute('aria-valuenow', progress);
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            // Show live feedback after first few questions
+            if (index >= 3) {
+                document.getElementById('liveFeedback').style.display = 'block';
+                updateLiveFeedback();
+            }
 
-<h3><a href="VROverview.html">Virtual reality</a></h3>
-</div>
-<div class="frontpage-section">
-<a href="ContributingToUnity.html"><img src="../uploads/Main/StructContributingToUnity.jpg" alt="Main.ContributingToUnity"></a>
+            // Update button text for last question
+            if (index === questions.length - 1) {
+                document.getElementById('nextBtn').innerHTML = 'View Results <span aria-hidden="true">→</span>';
+            } else {
+                document.getElementById('nextBtn').innerHTML = 'Next <span aria-hidden="true">→</span>';
+            }
 
-<h3><a href="ContributingToUnity.html">Contributing to Unity</a></h3>
+            // Focus on the first input element
+            setTimeout(() => {
+                const firstInput = document.querySelector('#questions input');
+                if (firstInput) firstInput.focus();
+            }, 100);
+        }
 
-<p>Suggest modifications to some of the Unity Editor’s source code.</p>
-</div>
-<div class="frontpage-section">
-<a href="PlatformSpecific.html"><img src="../uploads/Main/StructPlatformSpecific.jpg" alt="Main.PlatformSpecific"></a>
+        function renderSlider(question) {
+            const savedValue = responses[question.id] !== undefined ? responses[question.id] : question.default;
+            return `
+                <div class="slider-container">
+                    <div class="slider-value" id="slider-value-${question.id}" aria-live="polite">
+                        ${savedValue}${question.unit ? ' ' + question.unit : ''}
+                    </div>
+                    <div class="slider-wrapper">
+                        <input type="range" 
+                               min="${question.min}" 
+                               max="${question.max}" 
+                               value="${savedValue}"
+                               step="1"
+                               id="slider-${question.id}"
+                               aria-labelledby="question-${question.id}-label"
+                               aria-valuemin="${question.min}"
+                               aria-valuemax="${question.max}"
+                               aria-valuenow="${savedValue}"
+                               aria-valuetext="${savedValue}${question.unit ? ' ' + question.unit : ''}"
+                               oninput="updateSlider('${question.id}', this.value, '${question.unit || ''}')"
+                               onchange="saveResponse('${question.id}', parseFloat(this.value))">
+                    </div>
+                    <div class="slider-labels" aria-hidden="true">
+                        <span>${question.labels[0]}</span>
+                        <span>${question.labels[1]}</span>
+                    </div>
+                    <p class="sr-only">Use arrow keys to adjust the value between ${question.min} and ${question.max}</p>
+                </div>
+            `;
+        }
 
-<h3><a href="PlatformSpecific.html">Platform specific</a></h3>
+        function renderRadio(question) {
+            let html = '<div class="radio-group" role="radiogroup" aria-labelledby="question-' + question.id + '-label">';
+            question.options.forEach((option, i) => {
+                const checked = responses[question.id] === option.value ? 'checked' : '';
+                const optionId = `${question.id}-option-${i}`;
+                html += `
+                    <div class="radio-option">
+                        <input type="radio" 
+                               name="${question.id}" 
+                               id="${optionId}"
+                               value="${option.value}"
+                               ${checked}
+                               onchange="saveResponse('${question.id}', ${option.value})">
+                        <label for="${optionId}">${option.text}</label>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            return html;
+        }
 
-<p>Information about the platforms that you can build your application for.</p>
-</div>
-<div class="frontpage-section">
-<a href="LegacyTopics.html"><img src="../uploads/Main/StructLegacyTopics.jpg" alt="Main.LegacyTopics"></a>
+        function updateSlider(questionId, value, unit) {
+            const displayValue = value + (unit ? ' ' + unit : '');
+            document.getElementById(`slider-value-${questionId}`).textContent = displayValue;
+            const slider = document.getElementById(`slider-${questionId}`);
+            slider.setAttribute('aria-valuenow', value);
+            slider.setAttribute('aria-valuetext', displayValue);
+            saveResponse(questionId, parseFloat(value));
+        }
 
-<h3><a href="LegacyTopics.html">Legacy topics</a></h3>
-Useful if you are maintaining legacy projects.
-</div>
-<div class="clear"></div>
+        function saveResponse(questionId, value) {
+            responses[questionId] = value;
+            updateLiveFeedback();
+        }
 
-<p><br></p>
+        function updateLiveFeedback() {
+            const scores = calculateScores();
+            
+            // Update energy meter
+            const energyPercent = Math.round(scores.energy);
+            document.getElementById('energyMeter').style.width = energyPercent + '%';
+            document.getElementById('energyPercent').textContent = energyPercent + '%';
+            document.getElementById('energy-sr').textContent = 'Energy level: ' + energyPercent + '%';
+            document.querySelector('.meter-bar[aria-labelledby="energy-label"]').setAttribute('aria-valuenow', energyPercent);
+            
+            // Update construction meter
+            const constructionPercent = Math.round(scores.construction);
+            document.getElementById('constructionMeter').style.width = constructionPercent + '%';
+            document.getElementById('constructionPercent').textContent = constructionPercent + '%';
+            document.getElementById('construction-sr').textContent = 'Construction cost: ' + constructionPercent + '%';
+            document.querySelector('.meter-bar[aria-labelledby="construction-label"]').setAttribute('aria-valuenow', constructionPercent);
+            
+            // Update heat meter
+            const heatPercent = Math.round(scores.heat);
+            document.getElementById('heatMeter').style.width = heatPercent + '%';
+            document.getElementById('heatPercent').textContent = heatPercent + '%';
+            document.getElementById('heat-sr').textContent = 'System heat: ' + heatPercent + '%';
+            document.querySelector('.meter-bar[aria-labelledby="heat-label"]').setAttribute('aria-valuenow', heatPercent);
 
-<h3>Further sources of information</h3>
+            // Show warning if approaching critical levels
+            const statusWarning = document.getElementById('statusWarning');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            if (scores.energy < 40) {
+                statusWarning.style.display = 'block';
+                statusMessage.textContent = 'Your energy level is approaching the tipping point. Priority: Rest and restoration.';
+            } else if (scores.heat > 70) {
+                statusWarning.style.display = 'block';
+                statusMessage.textContent = 'System heat is very high. You may be approaching capacity collapse.';
+            } else {
+                statusWarning.style.display = 'none';
+            }
+        }
 
-<ul>
-<li><p>
-<a href="https://answers.unity3d.com/">Unity Answers</a> or <a href="https://forum.unity3d.com/">Unity Forums</a> - here you can ask questions and search answers.</p></li>
-<li><p>
-<a href="https://support.unity3d.com">The Unity Knowledge Base</a> - a collection of answers to questions posed to Unity’s Support teams.</p></li>
-<li><p>
-<a href="https://unity3d.com/learn/tutorials">Tutorials</a> - step by step video and written guides to using the Unity Editor.</p></li>
-<li><p>
-<a href="https://unityads.unity3d.com/help/index">Unity Ads Knowledge Base</a> - a guide to including ads in your game.</p></li>
-<li><p>
-<a class="tooltipMoreInfoLink" href="https://unity3d.com/asset-store/help">Asset Store help</a> - help on <span class="tooltip"><strong>Asset Store</strong><span class="tooltiptext">A growing library of free and commercial assets created by Unity and members of the community. Offers a wide variety of assets, from textures, models and animations to whole project examples, tutorials and Editor extensions. <a href="AssetStore.html">More info</a><br/><span class="tooltipGlossaryLink">See in <a href="Glossary.html#AssetStore">Glossary</a></span></span></span> content sharing.</p></li>
-</ul>
+        function calculateScores() {
+            let energySum = 0, energyCount = 0;
+            let constructionSum = 0, constructionCount = 0;
+            let heatSum = 0, heatCount = 0;
+            let supportSum = 0, supportCount = 0;
 
-<h3>Known issues</h3>
+            questions.forEach(q => {
+                if (responses[q.id] !== undefined) {
+                    let score;
+                    if (q.type === 'slider' && q.score) {
+                        score = q.score(responses[q.id]);
+                    } else {
+                        score = responses[q.id];
+                    }
 
-<p>Is a feature not working as you expect it to? It might be an existing Known Issue. Please check using the <strong>Issue Tracker</strong> at <a href="https://issuetracker.unity3d.com">issuetracker.unity3d.com</a>.</p>
-<!-- area:none -->
-<div id="_content"></div>
-<div class="nextprev clear">
-<div class="icon tt left mr1" data-distance="-40|-30|top">
-<span class="prev"><a href="UnityManual.html"></a></span><div class="tip"> Unity User Manual 2022.1</div>
-</div>
-<div class="icon tt right" data-distance="-40|-30|top">
-<span class="next"><a href="UnityManual.html"></a></span><div class="tip"> Unity User Manual 2022.1</div>
-</div>
-</div>
-</div>
-<div class="footer-wrapper"><div class="footer clear">
-<div class="copy">Copyright © 2022 Unity Technologies. Publication Date: 2022-07-22.</div>
-<div class="menu">
-<a href="https://learn.unity.com/">Tutorials</a><a href="https://answers.unity3d.com">Community Answers</a><a href="https://support.unity3d.com/hc/en-us">Knowledge Base</a><a href="https://forum.unity3d.com">Forums</a><a href="https://unity3d.com/asset-store">Asset Store</a><a href="https://docs.unity3d.com/Manual/TermsOfUse.html">Terms of use</a>
-</div>
-</div></div>
-</div></div></div>
-</div>
+                    if (q.category === 'energy') {
+                        energySum += score;
+                        energyCount++;
+                    } else if (q.category === 'construction') {
+                        constructionSum += score;
+                        constructionCount++;
+                    } else if (q.category === 'heat') {
+                        heatSum += score;
+                        heatCount++;
+                    } else if (q.category === 'support') {
+                        supportSum += score;
+                        supportCount++;
+                    }
+                }
+            });
+
+            return {
+                energy: energyCount > 0 ? energySum / energyCount : 0,
+                construction: constructionCount > 0 ? 100 - (constructionSum / constructionCount) : 0,
+                heat: heatCount > 0 ? 100 - (heatSum / heatCount) : 0,
+                support: supportCount > 0 ? supportSum / supportCount : 0
+            };
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion(currentQuestionIndex);
+                announce('Question ' + (currentQuestionIndex + 1) + ' of ' + questions.length);
+            } else {
+                generateReport();
+                announce('Assessment complete. Generating your personalized report.');
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion(currentQuestionIndex);
+                announce('Question ' + (currentQuestionIndex + 1) + ' of ' + questions.length);
+            }
+        }
+
+        function generateReport() {
+            const scores = calculateScores();
+            const capacity = scores.energy;
+            
+            let capacityLevel, capacityClass, refactoringPhase, primaryChallenges = [];
+
+            // Determine capacity level
+            if (capacity >= 70) {
+                capacityLevel = 'Full Capacity';
+                capacityClass = 'full';
+            } else if (capacity >= 40) {
+                capacityLevel = 'Moderate Depletion';
+                capacityClass = 'moderate';
+            } else if (capacity >= 20) {
+                capacityLevel = 'Significant Depletion';
+                capacityClass = 'low';
+            } else {
+                capacityLevel = 'Critical - Past Tipping Point';
+                capacityClass = 'critical';
+            }
+
+            // Determine refactoring phase
+            if (scores.construction > 70) {
+                refactoringPhase = 'Intensive Construction (Entropic Trough)';
+            } else if (scores.construction > 40) {
+                refactoringPhase = 'Active Refactoring (Mid-Stage)';
+            } else {
+                refactoringPhase = 'Stabilization Beginning';
+            }
+
+            // Identify challenges
+            if (scores.heat > 60) primaryChallenges.push('High system heat (stress)');
+            if (scores.construction > 60) primaryChallenges.push('Intensive identity construction');
+            if (scores.support < 50) primaryChallenges.push('Insufficient support infrastructure');
+            if (capacity < 50) primaryChallenges.push('Low available energy');
+
+            // Generate accessible report HTML
+            const reportHTML = `
+                <div class="alert alert-info" role="region" aria-labelledby="current-state-heading">
+                    <h3 id="current-state-heading">Your Current State</h3>
+                    <dl style="display: grid; grid-template-columns: auto 1fr; gap: 15px; margin-top: 15px;">
+                        <dt><strong>Capacity Level:</strong></dt>
+                        <dd><span class="status-badge ${capacityClass}">${capacityLevel}</span></dd>
+                        <dt><strong>Refactoring Phase:</strong></dt>
+                        <dd><span class="status-badge moderate">${refactoringPhase}</span></dd>
+                        <dt><strong>Energy Score:</strong></dt>
+                        <dd>${Math.round(capacity)}%</dd>
+                        <dt><strong>Construction Cost:</strong></dt>
+                        <dd>${Math.round(scores.construction)}%</dd>
+                        <dt><strong>System Heat:</strong></dt>
+                        <dd>${Math.round(scores.heat)}%</dd>
+                        <dt><strong>Support Level:</strong></dt>
+                        <dd>${Math.round(scores.support)}%</dd>
+                    </dl>
+                </div>
+
+                <section aria-labelledby="whats-happening-heading">
+                    <h3 id="whats-happening-heading">What's Happening to You Right Now</h3>
+                    <ul class="checklist">
+                        ${scores.construction > 60 ? '<li>You\'re actively questioning trunk programming (questioning core values)</li>' : ''}
+                        ${scores.construction > 40 ? '<li>You\'re experimenting at leading edge (trying new identities)</li>' : ''}
+                        ${scores.heat > 60 ? '<li class="warning">Your system heat is dangerously high (stress overload)</li>' : ''}
+                        ${capacity < 40 ? '<li class="warning">You\'re approaching or past capacity limit (risk of collapse)</li>' : ''}
+                        ${scores.support > 60 ? '<li>You have some support infrastructure (but may need more)</li>' : '<li class="warning">Support infrastructure is inadequate</li>'}
+                    </ul>
+                </section>
+
+                <section aria-labelledby="what-you-need-heading">
+                    <h3 id="what-you-need-heading">What You Need Right Now</h3>
+                    <ol class="priority-list">
+                        ${capacity < 40 ? '<li><strong>CRITICAL: Restore capacity immediately</strong><br>Sleep, eat, reduce demands. You\'re past the tipping point. Chapter 2 tools won\'t work until you restore substrate.</li>' : ''}
+                        ${scores.heat > 70 ? '<li><strong>Reduce system heat</strong><br>Identify and remove one major stressor. Find ONE space where you can be 100% authentic. Practice saying "I need a break."</li>' : ''}
+                        ${scores.support < 50 ? '<li><strong>Build cooling infrastructure</strong><br>Identify 2-3 people who can absorb environmental stress. Create one predictable, low-demand routine. Consider counseling if available.</li>' : ''}
+                        ${scores.construction > 70 ? '<li><strong>Accept oscillation as normal</strong><br>Expect crashes after productive phases. Plan recovery time into your schedule. Track energy patterns to predict when you need rest.</li>' : ''}
+                        <li><strong>Use Chapter 2 tools strategically</strong><br>${capacity >= 70 ? 'You have capacity to engage fully with SAGE methodology.' : capacity >= 40 ? 'You can use tools but may need more breaks and simpler applications.' : 'Wait until capacity is above 40% before attempting complex frameworks.'}</li>
+                    </ol>
+                </section>
+
+                <section aria-labelledby="timeline-heading">
+                    <h3 id="timeline-heading">Timeline and Expectations</h3>
+                    <p>Based on your responses, you appear to be approximately ${Math.round(scores.construction)}% through intensive identity refactoring.</p>
+                    <ul>
+                        <li>This phase typically peaks around age 18-22</li>
+                        <li>Brain remodeling continues into mid-twenties</li>
+                        <li>Full stabilization usually by age 25-26</li>
+                        <li>The hollow feeling is temporary (construction will complete)</li>
+                        <li>Your capacity will increase significantly once building stabilizes</li>
+                    </ul>
+                </section>
+
+                <div class="alert ${capacity < 40 ? 'alert-danger' : capacity < 70 ? 'alert-warning' : 'alert-success'}" role="alert">
+                    <h3>${capacity < 40 ? 'Immediate Action Required' : capacity < 70 ? 'Proceed With Caution' : 'You Can Proceed'}</h3>
+                    <p>${capacity < 40 ? 'Your capacity is too depleted for complex ethical analysis. Prioritize rest and recovery before continuing with course material.' : capacity < 70 ? 'You can engage with course material but may need to adjust expectations, take frequent breaks, and focus on one concept at a time.' : 'You have adequate capacity to engage fully with the course. Use this window productively while maintaining self-care.'}</p>
+                </div>
+            `;
+
+            document.getElementById('reportSummary').innerHTML = reportHTML;
+            showSection('report');
+            
+            // Focus on report heading
+            setTimeout(() => {
+                document.getElementById('report-heading').focus();
+            }, 100);
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            targetSection.classList.add('active');
+            
+            // Focus management
+            const heading = targetSection.querySelector('h2');
+            if (heading) {
+                heading.setAttribute('tabindex', '-1');
+                heading.focus();
+            }
+            
+            // Announce section change
+            const sectionName = heading ? heading.textContent : sectionId;
+            announce('Now showing: ' + sectionName);
+        }
+
+        function showConcept(conceptType) {
+            let content = '';
+            
+            if (conceptType === 'energy') {
+                content = `
+                    <h3>The Energy Paradox</h3>
+                    <p>This is the thermodynamic crisis at the heart of identity refactoring:</p>
+                    
+                    <section aria-labelledby="paradox-explanation">
+                        <h4 id="paradox-explanation">Understanding the Paradox</h4>
+                        <p><strong>You need massive energy to build a new identity structure.</strong> The construction requires your prefrontal cortex running in Manual Mode (expensive), emotional regulation during anxiety spikes (expensive), social experimentation and risk-taking (expensive), managing conflicts with parents and institutions (expensive), and maintaining academic or work performance (expensive).</p>
+                        
+                        <p><strong>But the construction process generates so much internal heat that your system has to divert energy away from construction just to cool itself down.</strong></p>
+                        
+                        <p>This is why you oscillate so dramatically. One day you're intensely creative—writing, making art, having deep conversations, planning your future, feeling alive and purposeful. The next day you crash into what feels like lethargy or depression.</p>
+                    </section>
+
+                    <section aria-labelledby="energy-states">
+                        <h4 id="energy-states">The Two States</h4>
+                        <dl>
+                            <dt><strong>High-energy construction phase:</strong></dt>
+                            <dd>Building intensely, generating massive heat, using all available energy</dd>
+                            
+                            <dt><strong>Cooling phase (what feels like "safe mode"):</strong></dt>
+                            <dd>All systems shut down except basic maintenance, energy diverted to cooling, forced rest to prevent total collapse</dd>
+                        </dl>
+                        
+                        <p>This oscillation isn't optional. It's how the system survives. When you feel yourself crashing into "safe mode," your body is protecting you from overheating past the point of no return.</p>
+                    </section>
+
+                    <div class="alert alert-info">
+                        <p><strong>Key Insight:</strong> The crashes after productive days aren't weakness. They're thermodynamic necessity. Your system is cooling down to prevent total collapse.</p>
+                    </div>
+                `;
+            } else if (conceptType === 'depth') {
+                content = `
+                    <h3>Identity Depth Structure</h3>
+                    <p>Your identity isn't flat—it exists in layers that change at different rates and require different energy to modify.</p>
+
+                    <section aria-labelledby="layers-heading">
+                        <h4 id="layers-heading">The Four Layers</h4>
+                        
+                        <article aria-labelledby="leading-edge-heading">
+                            <h5 id="leading-edge-heading">Leading Edge (Fluid, Immediate)</h5>
+                            <p><strong>What it is:</strong> What you're choosing RIGHT NOW. Changes minute-to-minute. Low energy to modify.</p>
+                            <p><strong>Examples:</strong> Today's outfit, current mood, this conversation, tonight's plans</p>
+                        </article>
+
+                        <article aria-labelledby="branches-heading">
+                            <h5 id="branches-heading">Branches (Growing, Adapting)</h5>
+                            <p><strong>What it is:</strong> Your developing capacities. Takes time and attention to grow.</p>
+                            <p><strong>Examples:</strong> Skills you're learning, friendships forming, expertise developing, communities joining</p>
+                        </article>
+
+                        <article aria-labelledby="trunk-heading">
+                            <h5 id="trunk-heading">Trunk (Established, But Revisable)</h5>
+                            <p><strong>What it is:</strong> Core operating system. Installed in childhood. Can be edited but expensive.</p>
+                            <p><strong>Examples:</strong> Core values, religious beliefs, political identity, fundamental assumptions about the world</p>
+                        </article>
+
+                        <article aria-labelledby="roots-heading">
+                            <h5 id="roots-heading">Roots (Deep, Slow-Changing)</h5>
+                            <p><strong>What it is:</strong> Biological foundations and deepest history. Changes very slowly or not at all.</p>
+                            <p><strong>Examples:</strong> Need for sleep, primary language, early trauma, body's stress responses</p>
+                        </article>
+                    </section>
+
+                    <div class="alert alert-info">
+                        <p><strong>Why this matters:</strong> When you're exhausted or stressed, you lose access to leading edge and branches. You revert to trunk and roots—the oldest, simplest programming. This is why you "become yourself" under pressure.</p>
+                    </div>
+                `;
+            } else if (conceptType === 'trough') {
+                content = `
+                    <h3>The Entropic Trough</h3>
+                    <p>The hollow feeling has a name and a purpose: you're in the gap between demolition and construction.</p>
+
+                    <section aria-labelledby="stages-heading">
+                        <h4 id="stages-heading">The Five Stages</h4>
+                        
+                        <ol>
+                            <li>
+                                <strong>Childhood (Stable but Borrowed):</strong>
+                                You run programming installed by parents and culture. Feels certain but not yours.
+                            </li>
+                            <li>
+                                <strong>Demolition (Questioning):</strong>
+                                You start questioning childhood programming. "Is this really me? Do I actually believe this?"
+                            </li>
+                            <li>
+                                <strong>The Gap (Hollow Feeling):</strong>
+                                You've loosened attachment to childhood identity but haven't stabilized the adult version. You feel hollow, fake, fragmented. This is TEMPORARY and NECESSARY.
+                            </li>
+                            <li>
+                                <strong>Construction (Building):</strong>
+                                Actively building new identity through experimentation. Energy-intensive but progress visible.
+                            </li>
+                            <li>
+                                <strong>Adulthood (Stable and Owned):</strong>
+                                Stable self-authored identity. Still revisable but no longer under constant reconstruction.
+                            </li>
+                        </ol>
+                    </section>
+
+                    <div class="alert alert-success">
+                        <p><strong>The key insight:</strong> The hollow feeling isn't you being broken. It's the space between versions. You've demolished the old house but haven't finished building the new one. Of course it feels unstable—you're living in the construction zone.</p>
+                    </div>
+                `;
+            } else if (conceptType === 'masking') {
+                content = `
+                    <h3>The Cost of Masking</h3>
+                    <p>When who you are doesn't match the role you play, you're running two operating systems simultaneously.</p>
+
+                    <section aria-labelledby="translation-heading">
+                        <h4 id="translation-heading">The Translation Process</h4>
+                        <p>This happens hundreds of times per day:</p>
+                        
+                        <dl style="background: var(--bg); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <dt><strong>Input:</strong></dt>
+                            <dd>"How are you doing?"</dd>
+                            
+                            <dt style="margin-top: 10px;"><strong>Internal Truth:</strong></dt>
+                            <dd>"I'm exhausted, questioning everything, barely holding it together"</dd>
+                            
+                            <dt style="margin-top: 10px;"><strong>Required Output:</strong></dt>
+                            <dd>"Fine! How are you?"</dd>
+                            
+                            <dt style="margin-top: 10px;"><strong>Energy Cost:</strong></dt>
+                            <dd>Suppressing truth, performing lie, monitoring gap equals CONSTANT DRAIN</dd>
+                        </dl>
+                    </section>
+
+                    <section aria-labelledby="why-exhausting-heading">
+                        <h4 id="why-exhausting-heading">Why This Is Exhausting</h4>
+                        <p>Every conversation where you can't be authentic, every class where you hide your real interests, every family dinner where you play a role—all of it costs energy.</p>
+                        
+                        <p>That energy you burned on translation and suppression is energy you needed for actual learning, growth, construction, relationship-building, and taking care of yourself.</p>
+                    </section>
+
+                    <div class="alert alert-info">
+                        <p><strong>Why authenticity is thermodynamic efficiency:</strong> Every space where you can be 100% yourself is energy you save. That's why finding even ONE place where you don't have to perform is crucial.</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('conceptContent').innerHTML = content;
+            showSection('concept-detail');
+        }
+
+        function saveResults() {
+            const data = {
+                responses: responses,
+                scores: calculateScores(),
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('refactoring_results', JSON.stringify(data));
+            announce('Results saved to your device successfully.');
+            alert('Results saved to your device! You can return to this page later to review them.');
+        }
+
+        function startOver() {
+            if (confirm('This will clear your current assessment and start over. Continue?')) {
+                responses = {};
+                currentQuestionIndex = 0;
+                showSection('welcome');
+                announce('Assessment reset. Returning to welcome screen.');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Allow Escape key to go back in concept views
+            if (e.key === 'Escape') {
+                const currentSection = document.querySelector('.section.active');
+                if (currentSection && currentSection.id === 'concept-detail') {
+                    showSection('concepts');
+                }
+            }
+        });
+
+        // Initialize
+        window.onload = function() {
+            const saved = localStorage.getItem('refactoring_results');
+            if (saved) {
+                // Could show option to resume
+            }
+            
+            // Set total questions for accessibility
+            document.getElementById('totalQuestions').textContent = questions.length;
+        };
+    </script>
 </body>
 </html>
