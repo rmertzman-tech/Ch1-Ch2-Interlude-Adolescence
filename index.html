@@ -51,7 +51,7 @@
             padding: 20px;
         }
 
-        /* Focus indicators - critical for accessibility */
+        /* Focus indicators */
         *:focus {
             outline: 3px solid var(--focus);
             outline-offset: 2px;
@@ -109,7 +109,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Accessible headings */
         h2 {
             color: var(--primary);
             margin-bottom: 20px;
@@ -120,6 +119,12 @@
             color: var(--secondary);
             margin: 25px 0 15px;
             font-size: 1.3em;
+        }
+
+        h4 {
+            color: var(--text);
+            margin: 20px 0 10px;
+            font-size: 1.1em;
         }
 
         p {
@@ -154,6 +159,20 @@
             font-weight: 600;
             margin-bottom: 15px;
             color: var(--text);
+        }
+
+        /* Input styling */
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary);
         }
 
         /* Accessible slider */
@@ -281,11 +300,51 @@
             margin: 20px 0;
         }
 
-        .meter-label {
+        .meter-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 8px;
+        }
+
+        .meter-label {
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-btn {
+            background: var(--text-light);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .info-btn:hover {
+            background: var(--primary);
+        }
+
+        .meter-explanation {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-top: 8px;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .meter-explanation.show {
+            display: block;
         }
 
         .meter-bar {
@@ -425,6 +484,10 @@
             border-left: 4px solid;
         }
 
+        .alert ul {
+            margin: 10px 0 10px 20px;
+        }
+
         .alert-info {
             background: #eff6ff;
             border-color: var(--primary);
@@ -523,6 +586,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
+            text-align: left;
+            width: 100%;
         }
 
         .concept-card:hover {
@@ -537,6 +602,21 @@
 
         .concept-card h3 {
             margin-top: 0;
+        }
+
+        dl {
+            margin: 10px 0;
+        }
+
+        dt {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        dd {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-light);
         }
 
         /* High contrast mode support */
@@ -587,7 +667,7 @@
     <div class="container">
         <header role="banner">
             <h1>The Refactoring Diagnostic</h1>
-            <p>Understanding Your Construction Process</p>
+            <p>Understanding Your Identity Construction Process</p>
         </header>
 
         <main id="main-content" role="main">
@@ -598,33 +678,72 @@
             <section class="section active" id="welcome" aria-labelledby="welcome-heading">
                 <h2 id="welcome-heading">Welcome to the Refactoring Diagnostic</h2>
                 
-                <p>If you've been feeling exhausted, confused, hollow, or like you're "faking" your way through life—<strong>you're not broken</strong>. You're in the middle of one of the most energy-expensive processes in human development.</p>
+                <p>If you've been feeling exhausted, confused, hollow, or like you're "faking" your way through life—<strong>you're not broken</strong>. You might be in the middle of one of the most energy-expensive processes in human development: <strong>identity refactoring</strong>.</p>
 
-                <p>You're <strong>refactoring</strong>—rewriting your identity's source code while the program is still running.</p>
+                <!-- Target Audience -->
+                <div class="alert alert-info" role="region" aria-labelledby="target-audience-heading">
+                    <h3 id="target-audience-heading">Who This Tool Is For</h3>
+                    
+                    <h4>Primary Audience:</h4>
+                    <p><strong>Adolescents and young adults (ages 15-25)</strong> currently going through intensive identity construction—questioning childhood programming, experimenting with new roles, building self-authored identity.</p>
+                    
+                    <h4>Also Useful For:</h4>
+                    <p>Anyone experiencing major life transitions that require identity reconstruction (career changes, coming out, emigration, recovery from trauma, major relationship changes). The concepts apply across ages, though the developmental framing is calibrated for adolescence.</p>
+                    
+                    <p><strong>Note:</strong> If you're past age 25, you've likely completed adolescent refactoring. Your results will reflect current life stress and capacity, not developmental phase. The capacity protection principles still apply at any age.</p>
+                </div>
 
-                <div class="alert alert-info" role="region" aria-labelledby="what-this-does">
-                    <h3 id="what-this-does">What this tool does:</h3>
+                <!-- What This Tool Does -->
+                <div class="alert alert-success" role="region" aria-labelledby="what-you-get-heading">
+                    <h3 id="what-you-get-heading">What This Tool Provides</h3>
+                    
+                    <h4>You'll Get:</h4>
                     <ul>
-                        <li>Helps you understand where you are in the refactoring process</li>
-                        <li>Shows you WHY you're exhausted (mechanisms, not just descriptions)</li>
-                        <li>Gives you personalized guidance on what you need right now</li>
-                        <li>Visualizes abstract concepts so they feel real and recognizable</li>
+                        <li><strong>Real-time feedback</strong> showing your current energy, construction cost, and stress levels as you answer questions</li>
+                        <li><strong>Personalized diagnostic report</strong> identifying your specific challenges right now</li>
+                        <li><strong>Prioritized action items</strong> for what you need most urgently</li>
+                        <li><strong>Mechanisms not just descriptions</strong>—understand WHY you're exhausted (thermodynamics, neuroscience, developmental biology)</li>
+                        <li><strong>Validation</strong> that your struggle is structural, not personal failure</li>
+                        <li><strong>Connection to course content</strong>—understand how to use Chapter 2 tools given your current capacity</li>
+                    </ul>
+                    
+                    <h4>We'll Ask You About:</h4>
+                    <ul>
+                        <li>Sleep, nutrition, and basic biological capacity</li>
+                        <li>Identity clarity and feelings of authenticity</li>
+                        <li>Stress levels and emotional regulation</li>
+                        <li>Support systems and environmental stability</li>
+                    </ul>
+                    
+                    <h4>Time Required:</h4>
+                    <p><strong>10-15 minutes</strong> for complete assessment plus personalized report</p>
+                    
+                    <h4>Privacy Guarantee:</h4>
+                    <p>All data stays on your device. Nothing sent to servers. Optional local save only. You can delete at any time.</p>
+                </div>
+
+                <!-- Age Input -->
+                <div class="question-group">
+                    <label for="age-input">
+                        <strong>Optional but Recommended:</strong> Your age helps us provide more relevant guidance
+                    </label>
+                    <input type="number" 
+                           id="age-input" 
+                           min="13" 
+                           max="100" 
+                           placeholder="Enter your age (or leave blank)"
+                           aria-describedby="age-help">
+                    <p id="age-help" style="font-size: 0.9em; color: var(--text-light); margin-top: 10px;">
+                        This helps us interpret your results appropriately. For example:
+                    </p>
+                    <ul style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">
+                        <li><strong>Ages 15-25:</strong> Report focuses on adolescent refactoring and brain development</li>
+                        <li><strong>Ages 26-35:</strong> Report emphasizes post-refactoring maintenance and life transitions</li>
+                        <li><strong>Ages 36+:</strong> Report focuses on capacity protection and life stress management</li>
                     </ul>
                 </div>
 
-                <h3>How it works:</h3>
-                <ol>
-                    <li>Complete a brief self-assessment (15-20 questions, approximately 10 minutes)</li>
-                    <li>See real-time visual feedback showing your energy state</li>
-                    <li>Explore interactive concept explanations</li>
-                    <li>Get a personalized diagnostic report</li>
-                </ol>
-
-                <div class="alert alert-success" role="region" aria-labelledby="privacy-heading">
-                    <h3 id="privacy-heading">Your Privacy</h3>
-                    <p>All data stays on your device. Nothing is sent to any server. You can optionally save your results locally or share anonymously with your teacher.</p>
-                </div>
-
+                <!-- Navigation -->
                 <nav aria-label="Main navigation">
                     <div class="btn-group">
                         <button type="button" class="btn" onclick="startAssessment()">
@@ -661,10 +780,16 @@
 
                 <div class="visual-feedback" id="liveFeedback" style="display: none;" role="region" aria-labelledby="live-feedback-heading">
                     <h3 id="live-feedback-heading">Your Current State (Live Update)</h3>
+                    <p style="font-size: 0.9em; color: var(--text-light); margin-bottom: 20px;">
+                        Click the <span aria-label="information icon">ℹ️</span> buttons to understand what each meter measures.
+                    </p>
                     
                     <div class="meter">
-                        <div class="meter-label">
-                            <span id="energy-label">Available Energy</span>
+                        <div class="meter-header">
+                            <div class="meter-label">
+                                <span id="energy-label">Available Energy</span>
+                                <button type="button" class="info-btn" aria-label="Explain available energy" onclick="toggleExplanation('energy')">ℹ️</button>
+                            </div>
                             <span id="energyPercent" aria-live="polite">--</span>
                         </div>
                         <div role="meter" 
@@ -677,11 +802,17 @@
                                 <span class="sr-only" id="energy-sr">Energy level: 0%</span>
                             </div>
                         </div>
+                        <div class="meter-explanation" id="energy-explanation">
+                            <strong>What this measures:</strong> Your current cognitive capacity for complex thinking, emotional regulation, and ethical reasoning. Below 70% means reduced capacity; below 40% means approaching the tipping point where sophisticated analysis becomes physically impossible.
+                        </div>
                     </div>
 
                     <div class="meter">
-                        <div class="meter-label">
-                            <span id="construction-label">Construction Cost</span>
+                        <div class="meter-header">
+                            <div class="meter-label">
+                                <span id="construction-label">Construction Cost</span>
+                                <button type="button" class="info-btn" aria-label="Explain construction cost" onclick="toggleExplanation('construction')">ℹ️</button>
+                            </div>
                             <span id="constructionPercent" aria-live="polite">--</span>
                         </div>
                         <div role="meter" 
@@ -694,11 +825,17 @@
                                 <span class="sr-only" id="construction-sr">Construction cost: 0%</span>
                             </div>
                         </div>
+                        <div class="meter-explanation" id="construction-explanation">
+                            <strong>What this measures:</strong> Energy being used for identity work—questioning values, experimenting with roles, managing the gap between old and new self. High cost is normal during major life transitions but depletes energy available for everything else.
+                        </div>
                     </div>
 
                     <div class="meter">
-                        <div class="meter-label">
-                            <span id="heat-label">System Heat (Stress)</span>
+                        <div class="meter-header">
+                            <div class="meter-label">
+                                <span id="heat-label">System Heat (Stress)</span>
+                                <button type="button" class="info-btn" aria-label="Explain system heat" onclick="toggleExplanation('heat')">ℹ️</button>
+                            </div>
                             <span id="heatPercent" aria-live="polite">--</span>
                         </div>
                         <div role="meter" 
@@ -710,6 +847,9 @@
                             <div class="meter-fill" id="heatMeter" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #ef4444);">
                                 <span class="sr-only" id="heat-sr">System heat: 0%</span>
                             </div>
+                        </div>
+                        <div class="meter-explanation" id="heat-explanation">
+                            <strong>What this measures:</strong> Chronic stress from irritability, emotional dysregulation, impulsivity, and social pain. High heat forces your system into "cooling mode" (crashes, shutdowns) to prevent total collapse. Above 70% is dangerous territory.
                         </div>
                     </div>
 
@@ -734,14 +874,14 @@
             <section class="section" id="concepts" aria-labelledby="concepts-heading">
                 <h2 id="concepts-heading">Interactive Concept Explorer</h2>
                 
-                <p>Select any concept below to understand it through interactive explanation:</p>
+                <p>Select any concept below to understand it through detailed explanation:</p>
 
                 <button type="button" class="concept-card" onclick="showConcept('energy')" aria-describedby="energy-desc">
                     <h3>
                         <span aria-hidden="true">⚡</span>
                         The Energy Paradox
                     </h3>
-                    <p id="energy-desc">Why you need massive energy to build identity, but building generates heat that drains your energy.</p>
+                    <p id="energy-desc">Why you need massive energy to build identity, but building generates heat that drains your energy. Understanding the oscillation between productive bursts and crashes.</p>
                 </button>
 
                 <button type="button" class="concept-card" onclick="showConcept('depth')" aria-describedby="depth-desc">
@@ -749,7 +889,7 @@
                         <span aria-hidden="true">🌳</span>
                         Identity Depth Structure
                     </h3>
-                    <p id="depth-desc">Your identity has layers: roots, trunk, branches, and leading edge. Each changes at different rates.</p>
+                    <p id="depth-desc">Your identity has layers: roots (biological), trunk (core values), branches (developing skills), and leading edge (immediate choices). Each changes at different rates and requires different energy.</p>
                 </button>
 
                 <button type="button" class="concept-card" onclick="showConcept('trough')" aria-describedby="trough-desc">
@@ -757,7 +897,7 @@
                         <span aria-hidden="true">🌊</span>
                         The Entropic Trough
                     </h3>
-                    <p id="trough-desc">Why you feel hollow: the gap between demolishing old identity and building new one.</p>
+                    <p id="trough-desc">Why you feel hollow: the gap between demolishing old identity and building new one. Understanding the five stages from childhood stability to adult self-authorship.</p>
                 </button>
 
                 <button type="button" class="concept-card" onclick="showConcept('masking')" aria-describedby="masking-desc">
@@ -765,7 +905,7 @@
                         <span aria-hidden="true">🎭</span>
                         The Cost of Masking
                     </h3>
-                    <p id="masking-desc">Running two operating systems at once: how pretending exhausts you.</p>
+                    <p id="masking-desc">Running two operating systems at once: how pretending to be someone you're not exhausts you. Why authenticity is thermodynamic efficiency, not luxury.</p>
                 </button>
 
                 <nav aria-label="Concept navigation">
@@ -821,7 +961,7 @@
     </div>
 
     <script>
-        // Assessment Questions
+        // Assessment Questions (unchanged from before)
         const questions = [
             {
                 id: 'sleep',
@@ -1013,6 +1153,7 @@
         // State management
         let currentQuestionIndex = 0;
         let responses = {};
+        let userAge = null;
 
         // Announce to screen readers
         function announce(message) {
@@ -1020,7 +1161,29 @@
             announcer.textContent = message;
         }
 
+        function toggleExplanation(meterId) {
+            const explanation = document.getElementById(meterId + '-explanation');
+            const isShown = explanation.classList.contains('show');
+            
+            // Hide all explanations
+            document.querySelectorAll('.meter-explanation').forEach(el => {
+                el.classList.remove('show');
+            });
+            
+            // Toggle the clicked one
+            if (!isShown) {
+                explanation.classList.add('show');
+                announce('Showing explanation for ' + meterId);
+            }
+        }
+
         function startAssessment() {
+            // Capture age if provided
+            const ageInput = document.getElementById('age-input');
+            if (ageInput.value) {
+                userAge = parseInt(ageInput.value);
+            }
+            
             showSection('assessment');
             announce('Starting assessment. Question 1 of ' + questions.length);
             renderQuestion(0);
@@ -1244,7 +1407,7 @@
             const scores = calculateScores();
             const capacity = scores.energy;
             
-            let capacityLevel, capacityClass, refactoringPhase, primaryChallenges = [];
+            let capacityLevel, capacityClass;
 
             // Determine capacity level
             if (capacity >= 70) {
@@ -1261,18 +1424,44 @@
                 capacityClass = 'critical';
             }
 
-            // Determine refactoring phase
-            if (scores.construction > 70) {
-                refactoringPhase = 'Intensive Construction (Entropic Trough)';
-            } else if (scores.construction > 40) {
-                refactoringPhase = 'Active Refactoring (Mid-Stage)';
+            // Age-appropriate phase determination
+            let phase, phaseDescription;
+
+            if (userAge && userAge < 18) {
+                phase = "Early Refactoring Phase";
+                phaseDescription = "You're in the initial stages of questioning childhood programming and beginning identity experimentation. High construction cost and energy demands are normal for this phase.";
+            } else if (userAge && userAge >= 18 && userAge <= 22) {
+                if (scores.construction > 70) {
+                    phase = "Peak Refactoring (Entropic Trough)";
+                    phaseDescription = "You're in the most intensive period of identity reconstruction—maximum instability, highest energy cost. This is temporary and necessary. The hollow feeling should begin stabilizing within 1-3 years.";
+                } else if (scores.construction > 40) {
+                    phase = "Active Refactoring (Mid-Stage)";
+                    phaseDescription = "You're actively building new identity architecture while questioning old programming. Energy costs remain high but you're making progress toward stabilization.";
+                } else {
+                    phase = "Active Identity Development";
+                    phaseDescription = "You're in active identity development with moderate construction costs. Your scores suggest you're managing the developmental demands reasonably well.";
+                }
+            } else if (userAge && userAge >= 23 && userAge <= 26) {
+                if (scores.construction > 60) {
+                    phase = "Late-Stage Refactoring";
+                    phaseDescription = "Final brain pruning and identity stabilization happening. Energy costs should begin declining as architecture solidifies over the next 1-3 years.";
+                } else {
+                    phase = "Early Stabilization";
+                    phaseDescription = "Identity architecture solidifying. Capacity should be increasing as adolescent refactoring completes. Current challenges likely reflect life stress more than developmental phase.";
+                }
+            } else if (userAge && userAge > 26) {
+                phase = "Post-Refactoring / Life Management";
+                phaseDescription = "Adolescent identity refactoring is complete. Your current scores reflect life stress, capacity management, and possibly identity work around major life transitions rather than developmental phase. The principles of capacity protection still apply at every age.";
             } else {
-                refactoringPhase = 'Stabilization Beginning';
+                // No age given
+                phase = "Current State Assessment";
+                phaseDescription = "Your scores reflect your current capacity and stress levels. (Note: Providing your age would allow for more accurate developmental context and interpretation.)";
             }
 
             // Identify challenges
-            if (scores.heat > 60) primaryChallenges.push('High system heat (stress)');
-            if (scores.construction > 60) primaryChallenges.push('Intensive identity construction');
+            let primaryChallenges = [];
+            if (scores.heat > 60) primaryChallenges.push('High system heat (chronic stress)');
+            if (scores.construction > 60) primaryChallenges.push('Intensive identity construction work');
             if (scores.support < 50) primaryChallenges.push('Insufficient support infrastructure');
             if (capacity < 50) primaryChallenges.push('Low available energy');
 
@@ -1281,58 +1470,56 @@
                 <div class="alert alert-info" role="region" aria-labelledby="current-state-heading">
                     <h3 id="current-state-heading">Your Current State</h3>
                     <dl style="display: grid; grid-template-columns: auto 1fr; gap: 15px; margin-top: 15px;">
+                        ${userAge ? `<dt><strong>Age:</strong></dt><dd>${userAge} years old</dd>` : ''}
                         <dt><strong>Capacity Level:</strong></dt>
                         <dd><span class="status-badge ${capacityClass}">${capacityLevel}</span></dd>
-                        <dt><strong>Refactoring Phase:</strong></dt>
-                        <dd><span class="status-badge moderate">${refactoringPhase}</span></dd>
+                        <dt><strong>Current Phase:</strong></dt>
+                        <dd><span class="status-badge moderate">${phase}</span></dd>
                         <dt><strong>Energy Score:</strong></dt>
-                        <dd>${Math.round(capacity)}%</dd>
+                        <dd>${Math.round(capacity)}% available</dd>
                         <dt><strong>Construction Cost:</strong></dt>
-                        <dd>${Math.round(scores.construction)}%</dd>
+                        <dd>${Math.round(scores.construction)}% of energy budget</dd>
                         <dt><strong>System Heat:</strong></dt>
-                        <dd>${Math.round(scores.heat)}%</dd>
+                        <dd>${Math.round(scores.heat)}% stress load</dd>
                         <dt><strong>Support Level:</strong></dt>
-                        <dd>${Math.round(scores.support)}%</dd>
+                        <dd>${Math.round(scores.support)}% adequate support</dd>
                     </dl>
                 </div>
 
+                <section aria-labelledby="phase-context-heading">
+                    <h3 id="phase-context-heading">What This Means for You</h3>
+                    <p>${phaseDescription}</p>
+                </section>
+
                 <section aria-labelledby="whats-happening-heading">
-                    <h3 id="whats-happening-heading">What's Happening to You Right Now</h3>
+                    <h3 id="whats-happening-heading">What's Happening Right Now</h3>
                     <ul class="checklist">
-                        ${scores.construction > 60 ? '<li>You\'re actively questioning trunk programming (questioning core values)</li>' : ''}
-                        ${scores.construction > 40 ? '<li>You\'re experimenting at leading edge (trying new identities)</li>' : ''}
-                        ${scores.heat > 60 ? '<li class="warning">Your system heat is dangerously high (stress overload)</li>' : ''}
-                        ${capacity < 40 ? '<li class="warning">You\'re approaching or past capacity limit (risk of collapse)</li>' : ''}
-                        ${scores.support > 60 ? '<li>You have some support infrastructure (but may need more)</li>' : '<li class="warning">Support infrastructure is inadequate</li>'}
+                        ${scores.construction > 60 ? '<li>You\'re actively questioning core values and beliefs (trunk-level audit)</li>' : ''}
+                        ${scores.construction > 40 ? '<li>You\'re experimenting with new roles and identities (leading edge work)</li>' : ''}
+                        ${scores.heat > 60 ? '<li class="warning">Your system heat is dangerously high (chronic stress overload)</li>' : ''}
+                        ${capacity < 40 ? '<li class="warning">You\'re approaching or past the capacity tipping point (risk of collapse)</li>' : ''}
+                        ${scores.support > 60 ? '<li>You have some support infrastructure in place</li>' : '<li class="warning">Support infrastructure is inadequate for current demands</li>'}
+                        ${primaryChallenges.length > 0 ? '<li class="warning">Primary challenges: ' + primaryChallenges.join(', ') + '</li>' : ''}
                     </ul>
                 </section>
 
                 <section aria-labelledby="what-you-need-heading">
-                    <h3 id="what-you-need-heading">What You Need Right Now</h3>
+                    <h3 id="what-you-need-heading">What You Need Right Now (Prioritized)</h3>
                     <ol class="priority-list">
-                        ${capacity < 40 ? '<li><strong>CRITICAL: Restore capacity immediately</strong><br>Sleep, eat, reduce demands. You\'re past the tipping point. Chapter 2 tools won\'t work until you restore substrate.</li>' : ''}
-                        ${scores.heat > 70 ? '<li><strong>Reduce system heat</strong><br>Identify and remove one major stressor. Find ONE space where you can be 100% authentic. Practice saying "I need a break."</li>' : ''}
-                        ${scores.support < 50 ? '<li><strong>Build cooling infrastructure</strong><br>Identify 2-3 people who can absorb environmental stress. Create one predictable, low-demand routine. Consider counseling if available.</li>' : ''}
-                        ${scores.construction > 70 ? '<li><strong>Accept oscillation as normal</strong><br>Expect crashes after productive phases. Plan recovery time into your schedule. Track energy patterns to predict when you need rest.</li>' : ''}
-                        <li><strong>Use Chapter 2 tools strategically</strong><br>${capacity >= 70 ? 'You have capacity to engage fully with SAGE methodology.' : capacity >= 40 ? 'You can use tools but may need more breaks and simpler applications.' : 'Wait until capacity is above 40% before attempting complex frameworks.'}</li>
+                        ${capacity < 40 ? '<li><strong>CRITICAL: Restore capacity immediately</strong><br>Sleep 8+ hours tonight. Eat three real meals tomorrow. Cancel non-essential commitments for 48 hours. You\'re past the tipping point where complex ethical analysis is possible. Chapter 2 tools won\'t work until you restore substrate.</li>' : ''}
+                        ${scores.heat > 70 ? '<li><strong>Reduce system heat urgently</strong><br>Identify ONE major stressor and remove or reduce it this week. Find ONE space where you can be 100% authentic (no masking cost). Practice saying "I need a break" to someone safe. Your system is forcing cooling phases to prevent total collapse.</li>' : ''}
+                        ${scores.support < 50 ? '<li><strong>Build cooling infrastructure</strong><br>Identify 2-3 people who can absorb some environmental stress (not add to it). Create one predictable, low-demand routine in your week. Consider professional counseling if available—thermodynamically, you need external heat sinks.</li>' : ''}
+                        ${scores.construction > 70 && userAge && userAge <= 25 ? '<li><strong>Accept oscillation as developmentally normal</strong><br>Expect crashes after productive phases—this is thermodynamic cycling, not failure. Plan recovery time into your schedule. Track energy patterns to predict when you need rest. The hollow feeling is temporary (1-3 years) but requires patience.</li>' : ''}
+                        ${userAge && userAge > 25 && scores.construction > 60 ? '<li><strong>Recognize major life transition</strong><br>You\'re past adolescent refactoring but clearly undergoing significant identity reconstruction (career change? relationship change? loss?). The same principles apply: protect capacity, reduce heat, get support. This transition will complete.</li>' : ''}
+                        <li><strong>Use Chapter 2 tools strategically</strong><br>${capacity >= 70 ? 'You have adequate capacity to engage fully with SAGE methodology and ethical frameworks. This is a good window for learning.' : capacity >= 40 ? 'You can use course tools but may need more breaks, simpler applications, and extra time. Focus on one concept at a time. Don\'t attempt complex multi-framework analysis yet.' : 'STOP: Your capacity is too depleted for complex ethical frameworks. Attempting them now will fail and increase frustration. Focus on substrate restoration first. Return to Chapter 2 when capacity is above 40%.'}</li>
                     </ol>
                 </section>
 
-                <section aria-labelledby="timeline-heading">
-                    <h3 id="timeline-heading">Timeline and Expectations</h3>
-                    <p>Based on your responses, you appear to be approximately ${Math.round(scores.construction)}% through intensive identity refactoring.</p>
-                    <ul>
-                        <li>This phase typically peaks around age 18-22</li>
-                        <li>Brain remodeling continues into mid-twenties</li>
-                        <li>Full stabilization usually by age 25-26</li>
-                        <li>The hollow feeling is temporary (construction will complete)</li>
-                        <li>Your capacity will increase significantly once building stabilizes</li>
-                    </ul>
-                </section>
+                ${generateTimelineSection(userAge, scores)}
 
                 <div class="alert ${capacity < 40 ? 'alert-danger' : capacity < 70 ? 'alert-warning' : 'alert-success'}" role="alert">
-                    <h3>${capacity < 40 ? 'Immediate Action Required' : capacity < 70 ? 'Proceed With Caution' : 'You Can Proceed'}</h3>
-                    <p>${capacity < 40 ? 'Your capacity is too depleted for complex ethical analysis. Prioritize rest and recovery before continuing with course material.' : capacity < 70 ? 'You can engage with course material but may need to adjust expectations, take frequent breaks, and focus on one concept at a time.' : 'You have adequate capacity to engage fully with the course. Use this window productively while maintaining self-care.'}</p>
+                    <h3>${capacity < 40 ? '🚨 Immediate Action Required' : capacity < 70 ? '⚠️ Proceed With Caution' : '✅ You Can Proceed'}</h3>
+                    <p>${capacity < 40 ? 'Your capacity is too depleted for complex ethical analysis. This is not a character flaw—it\'s biology. Prioritize rest and recovery before continuing with course material. You literally cannot use the tools effectively right now.' : capacity < 70 ? 'You can engage with course material but need to adjust expectations. Take frequent breaks. Focus on one concept at a time. Avoid multi-hour study sessions. Use simpler applications before attempting complex analysis.' : 'You have adequate capacity to engage fully with the course material. This is a good window for learning. Maintain self-care practices to keep capacity in this range.'}</p>
                 </div>
             `;
 
@@ -1343,6 +1530,53 @@
             setTimeout(() => {
                 document.getElementById('report-heading').focus();
             }, 100);
+        }
+
+        function generateTimelineSection(age, scores) {
+            if (age && age <= 25) {
+                return `
+                    <section aria-labelledby="timeline-heading">
+                        <h3 id="timeline-heading">Developmental Timeline & Expectations</h3>
+                        <ul>
+                            <li><strong>Identity refactoring</strong> typically peaks around ages 18-22</li>
+                            <li><strong>Brain pruning and myelination</strong> continue into mid-twenties</li>
+                            <li><strong>Prefrontal cortex maturation</strong> completes around age 25-26</li>
+                            <li><strong>Energy costs decline</strong> as identity architecture stabilizes</li>
+                            <li><strong>Capacity increases significantly</strong> once refactoring completes</li>
+                            <li><strong>The hollow feeling is temporary</strong>—construction will complete</li>
+                        </ul>
+                        ${age < 22 ? '<p><strong>For you specifically:</strong> You likely have ' + (22 - age) + '-' + (26 - age) + ' more years of active refactoring and brain development. The most intensive phase should ease within ' + Math.max(1, 22 - age) + '-' + Math.max(3, 25 - age) + ' years.</p>' : '<p><strong>For you specifically:</strong> You\'re in the late stages. Energy costs should begin declining noticeably over the next 1-3 years as your brain completes pruning and your identity solidifies.</p>'}
+                    </section>
+                `;
+            } else if (age && age > 25) {
+                return `
+                    <section aria-labelledby="context-heading">
+                        <h3 id="context-heading">Interpreting Your Results</h3>
+                        <p>While adolescent identity refactoring is complete for you, the core concepts still apply:</p>
+                        <ul>
+                            <li><strong>Energy depletion</strong> can happen at any age from chronic stress, overwork, caregiving demands, or life crises</li>
+                            <li><strong>Identity work</strong> continues throughout life during major transitions—career changes, relationship changes, loss, trauma recovery, coming out later in life, retirement, etc.</li>
+                            <li><strong>Capacity limits</strong> are real at every age. The tipping point (around 20-30% available energy) still applies. Past that threshold, complex reasoning fails regardless of age.</li>
+                            <li><strong>System heat</strong> (chronic stress) still forces cooling phases (crashes, burnout) to prevent total collapse</li>
+                            <li><strong>Support infrastructure</strong> remains thermodynamically necessary—you still need external heat sinks to manage environmental stress</li>
+                        </ul>
+                        <p>Your scores reflect <strong>current life stress and capacity management</strong>, not developmental phase. The recommendations above focus on capacity protection principles that apply at any age.</p>
+                    </section>
+                `;
+            } else {
+                return `
+                    <section aria-labelledby="general-context-heading">
+                        <h3 id="general-context-heading">Understanding Your Results</h3>
+                        <p>Your scores reflect your current capacity, stress levels, and identity work demands. Providing your age would allow for more specific developmental context, but the core principles apply universally:</p>
+                        <ul>
+                            <li>Capacity protection is essential at any age and life stage</li>
+                            <li>System heat requires cooling infrastructure (support systems)</li>
+                            <li>Identity work during major transitions is energy-expensive</li>
+                            <li>The tipping point (20-30% capacity) exists for everyone</li>
+                        </ul>
+                    </section>
+                `;
+            }
         }
 
         function showSection(sectionId) {
@@ -1374,28 +1608,39 @@
                     
                     <section aria-labelledby="paradox-explanation">
                         <h4 id="paradox-explanation">Understanding the Paradox</h4>
-                        <p><strong>You need massive energy to build a new identity structure.</strong> The construction requires your prefrontal cortex running in Manual Mode (expensive), emotional regulation during anxiety spikes (expensive), social experimentation and risk-taking (expensive), managing conflicts with parents and institutions (expensive), and maintaining academic or work performance (expensive).</p>
+                        <p><strong>You need massive energy to build a new identity structure.</strong> The construction requires:</p>
+                        <ul>
+                            <li>Prefrontal cortex running in Manual Mode (expensive)</li>
+                            <li>Emotional regulation during anxiety spikes (expensive)</li>
+                            <li>Social experimentation and risk-taking (expensive)</li>
+                            <li>Managing conflicts with parents and institutions (expensive)</li>
+                            <li>Maintaining academic or work performance while building (expensive)</li>
+                        </ul>
                         
                         <p><strong>But the construction process generates so much internal heat that your system has to divert energy away from construction just to cool itself down.</strong></p>
                         
-                        <p>This is why you oscillate so dramatically. One day you're intensely creative—writing, making art, having deep conversations, planning your future, feeling alive and purposeful. The next day you crash into what feels like lethargy or depression.</p>
+                        <p>This is why you oscillate so dramatically. One day you're intensely creative—writing, making art, having deep conversations, planning your future, feeling alive and purposeful. The next day you crash into what feels like lethargy or depression—you can barely get out of bed, can't focus on anything, feel hollow and unmotivated.</p>
+                        
+                        <p><strong>You're not being inconsistent or lazy.</strong> You're experiencing the natural oscillation of a high-energy system managing its own heat.</p>
                     </section>
 
                     <section aria-labelledby="energy-states">
                         <h4 id="energy-states">The Two States</h4>
                         <dl>
                             <dt><strong>High-energy construction phase:</strong></dt>
-                            <dd>Building intensely, generating massive heat, using all available energy</dd>
+                            <dd>Building intensely, generating massive heat, using all available energy. This feels productive, alive, purposeful—you're making real progress.</dd>
                             
                             <dt><strong>Cooling phase (what feels like "safe mode"):</strong></dt>
-                            <dd>All systems shut down except basic maintenance, energy diverted to cooling, forced rest to prevent total collapse</dd>
+                            <dd>All systems shut down except basic maintenance, energy diverted to cooling, forced rest to prevent total collapse. This feels like depression or shutdown but is actually protective.</dd>
                         </dl>
                         
                         <p>This oscillation isn't optional. It's how the system survives. When you feel yourself crashing into "safe mode," your body is protecting you from overheating past the point of no return.</p>
+                        
+                        <p><strong>The key insight:</strong> Plan for the oscillation. After a productive burst, schedule recovery time. Don't fight the crashes—use them for genuine rest, not guilt.</p>
                     </section>
 
                     <div class="alert alert-info">
-                        <p><strong>Key Insight:</strong> The crashes after productive days aren't weakness. They're thermodynamic necessity. Your system is cooling down to prevent total collapse.</p>
+                        <p><strong>Practical Application:</strong> Track your energy patterns for two weeks. Notice the cycle. Once you can predict crashes, you can plan around them rather than being surprised and demoralized by them.</p>
                     </div>
                 `;
             } else if (conceptType === 'depth') {
@@ -1408,32 +1653,46 @@
                         
                         <article aria-labelledby="leading-edge-heading">
                             <h5 id="leading-edge-heading">Leading Edge (Fluid, Immediate)</h5>
-                            <p><strong>What it is:</strong> What you're choosing RIGHT NOW. Changes minute-to-minute. Low energy to modify.</p>
-                            <p><strong>Examples:</strong> Today's outfit, current mood, this conversation, tonight's plans</p>
+                            <p><strong>What it is:</strong> What you're choosing RIGHT NOW. Changes minute-to-minute, hour-to-hour, day-to-day. Lowest energy to modify.</p>
+                            <p><strong>Examples:</strong> Today's outfit, current mood, this conversation's tone, tonight's plans, how you respond to this moment</p>
+                            <p><strong>Change difficulty:</strong> EASY when you have capacity. Shrinks dramatically when capacity fails.</p>
                         </article>
 
                         <article aria-labelledby="branches-heading">
                             <h5 id="branches-heading">Branches (Growing, Adapting)</h5>
-                            <p><strong>What it is:</strong> Your developing capacities. Takes time and attention to grow.</p>
-                            <p><strong>Examples:</strong> Skills you're learning, friendships forming, expertise developing, communities joining</p>
+                            <p><strong>What it is:</strong> Your developing capacities and relationships. Takes sustained time and attention to grow, but flexible and revisable.</p>
+                            <p><strong>Examples:</strong> Skills you're learning, friendships forming, expertise developing, communities you're joining, your growing knowledge</p>
+                            <p><strong>Change difficulty:</strong> MODERATE. Requires consistent effort over weeks, months, years. Can redirect but takes deliberate work.</p>
                         </article>
 
                         <article aria-labelledby="trunk-heading">
                             <h5 id="trunk-heading">Trunk (Established, But Revisable)</h5>
-                            <p><strong>What it is:</strong> Core operating system. Installed in childhood. Can be edited but expensive.</p>
-                            <p><strong>Examples:</strong> Core values, religious beliefs, political identity, fundamental assumptions about the world</p>
+                            <p><strong>What it is:</strong> Core operating system installed during childhood. Your fundamental values, beliefs, assumptions, identity categories. Feels like "who you are."</p>
+                            <p><strong>Examples:</strong> Religious beliefs, political identity, core moral values, gender identity, understanding of family duty, fundamental worldview</p>
+                            <p><strong>Change difficulty:</strong> HARD. Requires sustained energy over months or years. This is what refactoring primarily targets—auditing and rewriting trunk code.</p>
                         </article>
 
                         <article aria-labelledby="roots-heading">
                             <h5 id="roots-heading">Roots (Deep, Slow-Changing)</h5>
-                            <p><strong>What it is:</strong> Biological foundations and deepest history. Changes very slowly or not at all.</p>
-                            <p><strong>Examples:</strong> Need for sleep, primary language, early trauma, body's stress responses</p>
+                            <p><strong>What it is:</strong> Biological foundations and deepest history. Largely unchangeable without major intervention or generational time.</p>
+                            <p><strong>Examples:</strong> Need for sleep, primary language and its cognitive patterns, early trauma responses, body's baseline stress reactivity, genetic predispositions</p>
+                            <p><strong>Change difficulty:</strong> VERY HARD or impossible. Requires medical intervention, intensive therapy, or acceptance and adaptation.</p>
                         </article>
                     </section>
 
-                    <div class="alert alert-info">
-                        <p><strong>Why this matters:</strong> When you're exhausted or stressed, you lose access to leading edge and branches. You revert to trunk and roots—the oldest, simplest programming. This is why you "become yourself" under pressure.</p>
+                    <div class="alert alert-warning">
+                        <p><strong>Why this matters for capacity:</strong> When you're exhausted or stressed, you lose access to leading edge and branches. You revert to trunk and roots—the oldest, simplest, most automatic programming. This is why you "become yourself" under pressure—you fall back to the deepest, cheapest-to-run patterns.</p>
                     </div>
+
+                    <section aria-labelledby="depth-applications">
+                        <h4 id="depth-applications">Practical Applications</h4>
+                        <ul>
+                            <li><strong>When trying to change:</strong> Identify which layer you're targeting. Leading edge changes are quick; trunk changes require years and high capacity.</li>
+                            <li><strong>When stressed:</strong> Recognize you've lost access to sophisticated layers. Don't judge yourself for reverting to simpler patterns—that's protective, not failure.</li>
+                            <li><strong>When misaligned:</strong> If leading edge (how you act) doesn't match trunk (who you are), you're burning energy on translation constantly. Find spaces where alignment is possible.</li>
+                            <li><strong>When planning growth:</strong> Build branches (new skills, relationships) when you have moderate capacity. Save trunk revision (questioning core beliefs) for when you have high capacity and strong support.</li>
+                        </ul>
+                    </section>
                 `;
             } else if (conceptType === 'trough') {
                 content = `
@@ -1441,69 +1700,97 @@
                     <p>The hollow feeling has a name and a purpose: you're in the gap between demolition and construction.</p>
 
                     <section aria-labelledby="stages-heading">
-                        <h4 id="stages-heading">The Five Stages</h4>
+                        <h4 id="stages-heading">The Five Stages of Identity Development</h4>
                         
                         <ol>
                             <li>
                                 <strong>Childhood (Stable but Borrowed):</strong>
-                                You run programming installed by parents and culture. Feels certain but not yours.
+                                You run programming installed by parents, culture, school, religion. Feels certain and real because you don't question it yet. This identity is stable but it's not yours—you didn't choose it.
                             </li>
                             <li>
-                                <strong>Demolition (Questioning):</strong>
-                                You start questioning childhood programming. "Is this really me? Do I actually believe this?"
+                                <strong>Demolition (Questioning Begins):</strong>
+                                You start realizing: "Wait, is this really me? Do I actually believe this?" You're performing a necessary audit of childhood programming. Feels unsettling but is essential. Usually begins in mid-to-late adolescence.
                             </li>
                             <li>
-                                <strong>The Gap (Hollow Feeling):</strong>
-                                You've loosened attachment to childhood identity but haven't stabilized the adult version. You feel hollow, fake, fragmented. This is TEMPORARY and NECESSARY.
+                                <strong>The Gap / Entropic Trough (Maximum Instability):</strong>
+                                You've loosened attachment to childhood identity but haven't stabilized the adult version yet. You feel hollow, fake, fragmented—like you're performing rather than being. This is the most uncomfortable phase but you CANNOT skip it. Duration: typically 1-4 years at peak intensity.
                             </li>
                             <li>
-                                <strong>Construction (Building):</strong>
-                                Actively building new identity through experimentation. Energy-intensive but progress visible.
+                                <strong>Construction (Building New Architecture):</strong>
+                                Actively building self-authored identity through experimentation. Energy-intensive but progress becomes visible. You're testing versions of yourself, keeping what fits, discarding what doesn't.
                             </li>
                             <li>
-                                <strong>Adulthood (Stable and Owned):</strong>
-                                Stable self-authored identity. Still revisable but no longer under constant reconstruction.
+                                <strong>Stabilization / Adulthood (Owned Identity):</strong>
+                                Identity solidifies into something that feels real AND chosen. Still revisable during major life transitions but no longer under constant reconstruction. Usually achieved by mid-to-late twenties.
                             </li>
                         </ol>
                     </section>
 
                     <div class="alert alert-success">
-                        <p><strong>The key insight:</strong> The hollow feeling isn't you being broken. It's the space between versions. You've demolished the old house but haven't finished building the new one. Of course it feels unstable—you're living in the construction zone.</p>
+                        <p><strong>The key insight:</strong> The hollow feeling isn't you being broken. It's the space between versions. You've demolished the old house (childhood identity) but haven't finished building the new one (self-authored identity). Of course it feels unstable—you're living in the construction zone.</p>
+                        
+                        <p><strong>What helps:</strong> Knowing this is temporary (1-4 years typically), having people who accept your "in-between" state, permission to experiment without commitment, recognizing small signs of progress.</p>
+                        
+                        <p><strong>What doesn't help:</strong> Forcing premature commitment ("just pick something!"), comparing yourself to people with stable borrowed identities, expecting yourself to function as if you had a finished foundation.</p>
                     </div>
                 `;
             } else if (conceptType === 'masking') {
                 content = `
                     <h3>The Cost of Masking</h3>
-                    <p>When who you are doesn't match the role you play, you're running two operating systems simultaneously.</p>
+                    <p>When who you are doesn't match the role you have to play, you're running two operating systems simultaneously.</p>
 
                     <section aria-labelledby="translation-heading">
                         <h4 id="translation-heading">The Translation Process</h4>
-                        <p>This happens hundreds of times per day:</p>
+                        <p>This happens hundreds of times per day in every interaction where you can't be authentic:</p>
                         
                         <dl style="background: var(--bg); padding: 20px; border-radius: 8px; margin: 20px 0;">
-                            <dt><strong>Input:</strong></dt>
+                            <dt><strong>Input (from environment):</strong></dt>
                             <dd>"How are you doing?"</dd>
                             
                             <dt style="margin-top: 10px;"><strong>Internal Truth:</strong></dt>
-                            <dd>"I'm exhausted, questioning everything, barely holding it together"</dd>
+                            <dd>"I'm exhausted, questioning everything about my life, barely holding it together, feel hollow and fake most of the time"</dd>
                             
-                            <dt style="margin-top: 10px;"><strong>Required Output:</strong></dt>
+                            <dt style="margin-top: 10px;"><strong>Required Output (what's safe to say):</strong></dt>
                             <dd>"Fine! How are you?"</dd>
                             
                             <dt style="margin-top: 10px;"><strong>Energy Cost:</strong></dt>
-                            <dd>Suppressing truth, performing lie, monitoring gap equals CONSTANT DRAIN</dd>
+                            <dd>
+                                <ul>
+                                    <li>Suppressing internal truth</li>
+                                    <li>Generating false performance</li>
+                                    <li>Monitoring the gap between truth and performance</li>
+                                    <li>Managing anxiety about being "found out"</li>
+                                    <li>Remembering what you've told different people</li>
+                                </ul>
+                                <strong>Result: CONSTANT ENERGY DRAIN</strong>
+                            </dd>
                         </dl>
                     </section>
 
                     <section aria-labelledby="why-exhausting-heading">
-                        <h4 id="why-exhausting-heading">Why This Is Exhausting</h4>
-                        <p>Every conversation where you can't be authentic, every class where you hide your real interests, every family dinner where you play a role—all of it costs energy.</p>
+                        <h4 id="why-exhausting-heading">Why This Is So Exhausting</h4>
+                        <p>Every conversation where you can't be authentic becomes a computational task:</p>
+                        <ul>
+                            <li><strong>At school/work:</strong> Hiding your real interests, beliefs, struggles, identity. Pretending to care about things that bore you. Performing enthusiasm, confidence, or normalcy you don't feel.</li>
+                            <li><strong>With family:</strong> Playing the role of "good child" while internally being someone very different. Not correcting their assumptions about who you are.</li>
+                            <li><strong>With peers:</strong> Experimenting with different performances to see what works. Code-switching between friend groups. Managing multiple "versions" of yourself.</li>
+                        </ul>
                         
-                        <p>That energy you burned on translation and suppression is energy you needed for actual learning, growth, construction, relationship-building, and taking care of yourself.</p>
+                        <p>That energy you're burning on translation and suppression? <strong>That's energy you needed for:</strong></p>
+                        <ul>
+                            <li>Actual learning and cognitive work</li>
+                            <li>Identity construction (the work you're trying to do)</li>
+                            <li>Emotional regulation</li>
+                            <li>Physical health maintenance</li>
+                            <li>Relationship building</li>
+                            <li>Creative expression</li>
+                        </ul>
                     </section>
 
                     <div class="alert alert-info">
-                        <p><strong>Why authenticity is thermodynamic efficiency:</strong> Every space where you can be 100% yourself is energy you save. That's why finding even ONE place where you don't have to perform is crucial.</p>
+                        <p><strong>Why authenticity is thermodynamic efficiency:</strong> Every space where you can be 100% yourself—no translation, no suppression, no monitoring—is energy you save for everything else. This is why finding even ONE place (one person, one community, one online space) where you don't have to perform is crucial.</p>
+                        
+                        <p><strong>Practical strategy:</strong> Identify your current "masking cost" by rating authenticity in different contexts (home, school, work, friends) on 0-100%. Calculate total daily masking time. Then: prioritize creating or finding at least ONE zero-masking-cost space. This becomes your energy recharge zone.</p>
                     </div>
                 `;
             }
@@ -1516,6 +1803,7 @@
             const data = {
                 responses: responses,
                 scores: calculateScores(),
+                age: userAge,
                 timestamp: new Date().toISOString()
             };
             localStorage.setItem('refactoring_results', JSON.stringify(data));
@@ -1527,6 +1815,7 @@
             if (confirm('This will clear your current assessment and start over. Continue?')) {
                 responses = {};
                 currentQuestionIndex = 0;
+                userAge = null;
                 showSection('welcome');
                 announce('Assessment reset. Returning to welcome screen.');
             }
@@ -1534,7 +1823,6 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            // Allow Escape key to go back in concept views
             if (e.key === 'Escape') {
                 const currentSection = document.querySelector('.section.active');
                 if (currentSection && currentSection.id === 'concept-detail') {
@@ -1550,7 +1838,6 @@
                 // Could show option to resume
             }
             
-            // Set total questions for accessibility
             document.getElementById('totalQuestions').textContent = questions.length;
         };
     </script>
