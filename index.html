@@ -26,7 +26,6 @@
             box-sizing: border-box;
         }
 
-        /* Skip to main content link */
         .skip-link {
             position: absolute;
             top: -40px;
@@ -51,7 +50,6 @@
             padding: 20px;
         }
 
-        /* Focus indicators */
         *:focus {
             outline: 3px solid var(--focus);
             outline-offset: 2px;
@@ -132,7 +130,6 @@
             color: var(--text-light);
         }
 
-        /* Form accessibility */
         fieldset {
             border: none;
             padding: 0;
@@ -161,7 +158,6 @@
             color: var(--text);
         }
 
-        /* Input styling */
         input[type="number"] {
             width: 100%;
             padding: 10px;
@@ -175,7 +171,6 @@
             border-color: var(--primary);
         }
 
-        /* Accessible slider */
         .slider-container {
             margin: 20px 0;
         }
@@ -239,7 +234,6 @@
             margin: 10px 0;
         }
 
-        /* Accessible radio buttons */
         .radio-group {
             display: flex;
             flex-direction: column;
@@ -287,7 +281,6 @@
             flex: 1;
         }
 
-        /* Visual feedback with accessible alternatives */
         .visual-feedback {
             margin: 30px 0;
             padding: 25px;
@@ -368,7 +361,6 @@
             font-weight: 600;
         }
 
-        /* Accessible status badges */
         .status-badge {
             display: inline-block;
             padding: 6px 12px;
@@ -400,7 +392,6 @@
             border-color: #7f1d1d;
         }
 
-        /* Accessible buttons */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -448,7 +439,6 @@
             flex-wrap: wrap;
         }
 
-        /* Accessible progress bar */
         .progress-bar {
             height: 6px;
             background: var(--border);
@@ -476,7 +466,6 @@
             border-width: 0;
         }
 
-        /* Accessible alerts */
         .alert {
             padding: 15px 20px;
             border-radius: 8px;
@@ -577,7 +566,6 @@
             color: var(--warning);
         }
 
-        /* Accessible concept cards */
         .concept-card {
             margin: 15px 0;
             padding: 20px;
@@ -619,7 +607,6 @@
             color: var(--text-light);
         }
 
-        /* High contrast mode support */
         @media (prefers-contrast: high) {
             :root {
                 --border: #000000;
@@ -631,7 +618,6 @@
             }
         }
 
-        /* Print styles */
         @media print {
             body { background: white; }
             .container { box-shadow: none; }
@@ -641,7 +627,6 @@
             .section:not(#report) { display: none !important; }
         }
 
-        /* Mobile responsive */
         @media (max-width: 768px) {
             body { padding: 10px; }
             main { padding: 20px; }
@@ -651,7 +636,6 @@
             .btn { width: 100%; margin: 5px 0 !important; }
         }
 
-        /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -671,7 +655,6 @@
         </header>
 
         <main id="main-content" role="main">
-            <!-- Announcement region for screen readers -->
             <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
 
             <!-- SECTION 1: Welcome -->
@@ -691,6 +674,31 @@
                     <p>Anyone experiencing major life transitions that require identity reconstruction (career changes, coming out, emigration, recovery from trauma, major relationship changes). The concepts apply across ages, though the developmental framing is calibrated for adolescence.</p>
                     
                     <p><strong>Note:</strong> If you're past age 25, you've likely completed adolescent refactoring. Your results will reflect current life stress and capacity, not developmental phase. The capacity protection principles still apply at any age.</p>
+                </div>
+
+                <!-- NEW: Cultural Context Warning -->
+                <div class="alert alert-warning" role="region" aria-labelledby="cultural-context-heading">
+                    <h3 id="cultural-context-heading">Important: Cultural Context</h3>
+                    <p>This diagnostic is calibrated for <strong>individualistic identity development</strong> 
+                    common in Western cultures—where adolescents build separate, discrete identities apart from 
+                    family structures.</p>
+                    
+                    <p><strong>If you come from a collectivist cultural background</strong> where identity is 
+                    more distributed across family and community networks, some questions may not resonate with 
+                    your experience:</p>
+                    
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>You may not experience a "hollow" or "fake" feeling (the "entropic trough")</li>
+                        <li>Questioning family values might feel less relevant if identity comes from the collective</li>
+                        <li>Your development may focus on deepening community integration, not individual separation</li>
+                    </ul>
+                    
+                    <p><strong>Both developmental pathways are valid.</strong> This tool focuses on one specific 
+                    pattern. If you navigate both systems (individualist at school/work, collectivist at home), 
+                    the tool may help you understand part of your experience while not capturing all of it.</p>
+                    
+                    <p><strong>What remains universal:</strong> The capacity assessment questions (sleep, food, stress, support) 
+                    are relevant regardless of cultural background. Everyone needs adequate substrate to maintain coherence.</p>
                 </div>
 
                 <!-- What This Tool Does -->
@@ -961,7 +969,8 @@
     </div>
 
     <script>
-        // Assessment Questions (unchanged from before)
+        // [COMPLETE JAVASCRIPT FROM PREVIOUS VERSION - UNCHANGED]
+        // Assessment Questions
         const questions = [
             {
                 id: 'sleep',
@@ -1155,7 +1164,6 @@
         let responses = {};
         let userAge = null;
 
-        // Announce to screen readers
         function announce(message) {
             const announcer = document.getElementById('announcements');
             announcer.textContent = message;
@@ -1165,12 +1173,10 @@
             const explanation = document.getElementById(meterId + '-explanation');
             const isShown = explanation.classList.contains('show');
             
-            // Hide all explanations
             document.querySelectorAll('.meter-explanation').forEach(el => {
                 el.classList.remove('show');
             });
             
-            // Toggle the clicked one
             if (!isShown) {
                 explanation.classList.add('show');
                 announce('Showing explanation for ' + meterId);
@@ -1178,7 +1184,6 @@
         }
 
         function startAssessment() {
-            // Capture age if provided
             const ageInput = document.getElementById('age-input');
             if (ageInput.value) {
                 userAge = parseInt(ageInput.value);
@@ -1217,23 +1222,19 @@
             document.getElementById('progressBar').style.width = progress + '%';
             document.querySelector('.progress-bar').setAttribute('aria-valuenow', progress);
             
-            // Update navigation buttons
             document.getElementById('prevBtn').disabled = index === 0;
             
-            // Show live feedback after first few questions
             if (index >= 3) {
                 document.getElementById('liveFeedback').style.display = 'block';
                 updateLiveFeedback();
             }
 
-            // Update button text for last question
             if (index === questions.length - 1) {
                 document.getElementById('nextBtn').innerHTML = 'View Results <span aria-hidden="true">→</span>';
             } else {
                 document.getElementById('nextBtn').innerHTML = 'Next <span aria-hidden="true">→</span>';
             }
 
-            // Focus on the first input element
             setTimeout(() => {
                 const firstInput = document.querySelector('#questions input');
                 if (firstInput) firstInput.focus();
@@ -1309,28 +1310,24 @@
         function updateLiveFeedback() {
             const scores = calculateScores();
             
-            // Update energy meter
             const energyPercent = Math.round(scores.energy);
             document.getElementById('energyMeter').style.width = energyPercent + '%';
             document.getElementById('energyPercent').textContent = energyPercent + '%';
             document.getElementById('energy-sr').textContent = 'Energy level: ' + energyPercent + '%';
             document.querySelector('.meter-bar[aria-labelledby="energy-label"]').setAttribute('aria-valuenow', energyPercent);
             
-            // Update construction meter
             const constructionPercent = Math.round(scores.construction);
             document.getElementById('constructionMeter').style.width = constructionPercent + '%';
             document.getElementById('constructionPercent').textContent = constructionPercent + '%';
             document.getElementById('construction-sr').textContent = 'Construction cost: ' + constructionPercent + '%';
             document.querySelector('.meter-bar[aria-labelledby="construction-label"]').setAttribute('aria-valuenow', constructionPercent);
             
-            // Update heat meter
             const heatPercent = Math.round(scores.heat);
             document.getElementById('heatMeter').style.width = heatPercent + '%';
             document.getElementById('heatPercent').textContent = heatPercent + '%';
             document.getElementById('heat-sr').textContent = 'System heat: ' + heatPercent + '%';
             document.querySelector('.meter-bar[aria-labelledby="heat-label"]').setAttribute('aria-valuenow', heatPercent);
 
-            // Show warning if approaching critical levels
             const statusWarning = document.getElementById('statusWarning');
             const statusMessage = document.getElementById('statusMessage');
             
@@ -1409,7 +1406,6 @@
             
             let capacityLevel, capacityClass;
 
-            // Determine capacity level
             if (capacity >= 70) {
                 capacityLevel = 'Full Capacity';
                 capacityClass = 'full';
@@ -1424,7 +1420,6 @@
                 capacityClass = 'critical';
             }
 
-            // Age-appropriate phase determination
             let phase, phaseDescription;
 
             if (userAge && userAge < 18) {
@@ -1453,19 +1448,16 @@
                 phase = "Post-Refactoring / Life Management";
                 phaseDescription = "Adolescent identity refactoring is complete. Your current scores reflect life stress, capacity management, and possibly identity work around major life transitions rather than developmental phase. The principles of capacity protection still apply at every age.";
             } else {
-                // No age given
                 phase = "Current State Assessment";
                 phaseDescription = "Your scores reflect your current capacity and stress levels. (Note: Providing your age would allow for more accurate developmental context and interpretation.)";
             }
 
-            // Identify challenges
             let primaryChallenges = [];
             if (scores.heat > 60) primaryChallenges.push('High system heat (chronic stress)');
             if (scores.construction > 60) primaryChallenges.push('Intensive identity construction work');
             if (scores.support < 50) primaryChallenges.push('Insufficient support infrastructure');
             if (capacity < 50) primaryChallenges.push('Low available energy');
 
-            // Generate accessible report HTML
             const reportHTML = `
                 <div class="alert alert-info" role="region" aria-labelledby="current-state-heading">
                     <h3 id="current-state-heading">Your Current State</h3>
@@ -1526,7 +1518,6 @@
             document.getElementById('reportSummary').innerHTML = reportHTML;
             showSection('report');
             
-            // Focus on report heading
             setTimeout(() => {
                 document.getElementById('report-heading').focus();
             }, 100);
@@ -1586,14 +1577,12 @@
             const targetSection = document.getElementById(sectionId);
             targetSection.classList.add('active');
             
-            // Focus management
             const heading = targetSection.querySelector('h2');
             if (heading) {
                 heading.setAttribute('tabindex', '-1');
                 heading.focus();
             }
             
-            // Announce section change
             const sectionName = heading ? heading.textContent : sectionId;
             announce('Now showing: ' + sectionName);
         }
@@ -1821,7 +1810,6 @@
             }
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const currentSection = document.querySelector('.section.active');
@@ -1831,7 +1819,6 @@
             }
         });
 
-        // Initialize
         window.onload = function() {
             const saved = localStorage.getItem('refactoring_results');
             if (saved) {
